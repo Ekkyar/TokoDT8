@@ -8,11 +8,11 @@
                 <div class="col-lg">
                     <div class="p-5">
                         <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Buat Akun</h1>
+                            <h1 class="h4 text-gray-900 mb-4">Buat User</h1>
                         </div>
 
                         <!-- Form -->
-                        <form class="user" method="POST" action="<?= base_url('Admin/Admin_Akun/registration'); ?>">
+                        <form class="user" method="POST" action="<?= base_url('Admin/Admin_User/registration'); ?>">
                             <!-- Nama -->
                             <div class="form-group">
                                 <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Lengkap" value="<?= set_value('nama'); ?>">
@@ -65,12 +65,12 @@
                             </div>
 
                             <button type="submit" class="btn btn-primary btn-block">
-                                Buat Akun
+                                Buat User
                             </button>
                         </form>
                         <!-- End Form -->
                         <div class="text-center">
-                            <a class="small" href="<?= base_url('Admin/Admin_Akun'); ?>">Kembali</a>
+                            <a class="small" href="<?= base_url('Admin/Admin_User'); ?>">Kembali</a>
                         </div>
                     </div>
                 </div>

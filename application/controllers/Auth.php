@@ -50,9 +50,9 @@ class Auth extends CI_Controller
 
                 //cek akses
                 if ($data['id_akses'] == '1') {
-                    redirect('Admin/Admin_Dashboard');
+                    redirect('Admin/Dashboard');
                 } else if ($data['id_akses'] == '2') {
-                    redirect('Kasir/Kasir_Dashboard');
+                    redirect('Kasir/Dashboard');
                 }
             } else {
                 //password salah

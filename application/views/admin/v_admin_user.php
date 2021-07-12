@@ -13,9 +13,9 @@
                 <!-- Tombol -->
                 <div class="row">
                     <div class="col-lg-3 mb-3">
-                        <a class="btn btn-success" href="<?= base_url('Admin/Admin_Akun/registration'); ?>">
+                        <a class="btn btn-success" href="<?= base_url('Admin/Admin_User/registration'); ?>">
                             <i class="fas fa-fw fa-plus"></i>
-                            Tambah Akun
+                            Tambah User
                         </a>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                                             <td class="text-center">
 
                                                 <!-- Edit -->
-                                                <a href="<?= base_url('Admin/Admin_Akun/detail_user/'); ?><?= $tb['id_user']; ?>" class="badge badge-primary">details</a>
+                                                <a href="<?= base_url('Admin/Admin_User/detail_user/'); ?><?= $tb['id_user']; ?>" class="badge badge-primary">details</a>
 
                                                 <!-- Delete (Button Modal Delete) -->
                                                 <button type="button" class="btn btn-danger badge" data-toggle="modal" data-target="#modalDelete<?= $tb['id_user']; ?>">hapus</button>
@@ -74,12 +74,12 @@
                                                             </div>
 
                                                             <div class="modal-body">
-                                                                Akun <?= $tb['nama']; ?> akan dihapus! Apakah anda yakin?
+                                                                User <?= $tb['nama']; ?> akan dihapus! Apakah anda yakin?
                                                             </div>
 
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                <a href="<?= base_url('Admin/Admin_Akun/delete_user/'); ?><?= $tb['id_user']; ?>" class="btn btn-danger">hapus</a>
+                                                                <a href="<?= base_url('Admin/Admin_User/delete_user/'); ?><?= $tb['id_user']; ?>" class="btn btn-danger">hapus</a>
                                                             </div>
                                                         </div>
                                                     </div>

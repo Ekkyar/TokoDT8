@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Admin_Akun extends CI_Controller
+class Admin_User extends CI_Controller
 {
     public function __construct()
     {
@@ -24,7 +24,7 @@ class Admin_Akun extends CI_Controller
     public function index()
     {
         //title
-        $data['title'] = 'Akun';
+        $data['title'] = 'Data User';
 
         //ambil data session login
         $data['akses'] = $this->db->get_where('tb_akses', ['id_akses' => $this->session->userdata('id_akses')])->row_array();
@@ -37,7 +37,7 @@ class Admin_Akun extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('templates/admin_sidebar', $data);
         $this->load->view('templates/admin_topbar', $data);
-        $this->load->view('admin/v_admin_akun', $data);
+        $this->load->view('admin/v_admin_user', $data);
         $this->load->view('templates/admin_footer');
     }
 
@@ -93,8 +93,8 @@ class Admin_Akun extends CI_Controller
 
             //insert ke db
             $this->db->insert('tb_user', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Daftar Akun Berhasil!</div>');
-            redirect('Admin/Admin_Akun');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Daftar User Berhasil!</div>');
+            redirect('Admin/Admin_User');
         }
     }
 
@@ -111,7 +111,7 @@ class Admin_Akun extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             //form validasi gagal
             //title
-            $data['title'] = 'Detail Akun';
+            $data['title'] = 'Data User';
 
             //ambil data session login
             $data['akses'] = $this->db->get_where('tb_akses', ['id_akses' => $this->session->userdata('id_akses')])->row_array();
@@ -132,7 +132,7 @@ class Admin_Akun extends CI_Controller
             $this->Toko_Model->editUser($id_user);
             //notif edit data sukses
             $this->session->set_flashdata('message', '<div class="alert alert-success text-center" role="alert">Data User telah diupdate</div>');
-            redirect('Admin/Admin_Akun/');
+            redirect('Admin/Admin_User/');
         }
     }
 
@@ -143,6 +143,6 @@ class Admin_Akun extends CI_Controller
 
         //notif delete sukses
         $this->session->set_flashdata('message', '<div class="alert alert-danger text-center" role="alert">User berhasil dihapus</div>');
-        redirect('Admin/Admin_Akun');
+        redirect('Admin/Admin_User');
     }
 }
