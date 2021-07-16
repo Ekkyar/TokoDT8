@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Admin_Supplier extends CI_Controller
+class Supplier extends CI_Controller
 {
     public function __construct()
     {
@@ -15,6 +15,9 @@ class Admin_Supplier extends CI_Controller
                 redirect('Auth/access_blocked');
             }
         }
+        //ambil data session login
+        $this->akses = $this->db->get_where('tb_akses', ['id_akses' => $this->session->userdata('id_akses')])->row_array();
+        $this->user = $this->db->get_where('tb_user', ['username' => $this->session->userdata('username')])->row_array();
         //load model
         $this->load->model('Toko_Model');
         //form validation
@@ -23,27 +26,27 @@ class Admin_Supplier extends CI_Controller
 
     public function index()
     {
-        //title
-        $data['title'] = 'Data Supplier';
-
         //ambil data session login
-        $data['akses'] = $this->db->get_where('tb_akses', ['id_akses' => $this->session->userdata('id_akses')])->row_array();
-        $data['user'] = $this->db->get_where('tb_user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['akses'] = $this->akses;
+        $data['user'] = $this->user;
 
         //model get All supplier
         $data['getAllSupplier'] = $this->Toko_Model->getAllSupplier();
 
+        $data['title'] = 'Data Supplier';
         $this->load->view('templates/header', $data);
         $this->load->view('templates/admin_sidebar', $data);
         $this->load->view('templates/admin_topbar', $data);
-        $this->load->view('admin/v_admin_supplier', $data);
-        $this->load->view('templates/admin_footer');
+        $this->load->view('admin/v_supplier', $data);
+        $this->load->view('templates/footer');
     }
 
     private function _validasi()
     {
         $this->form_validation->set_rules('nama_supplier', 'Nama Supplier', 'required|trim');
-        $this->form_validation->set_rules('no_telp', 'Nomor Telepon', 'required|trim|numeric');
+        $this->form_validation->set_rules('no_telp', 'Nomor Telepon', 'required|trim|numeric|is_unique[tb_supplier.no_telp]', [
+            'is_unique' => 'Nomor Telepon telah digunakan!'
+        ]);
         $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
     }
 
@@ -51,28 +54,25 @@ class Admin_Supplier extends CI_Controller
     {
         $this->_validasi();
         if ($this->form_validation->run() == false) {
-            //title
-            $data['title'] = 'Data Supplier';
-
             //ambil data session login
-            $data['akses'] = $this->db->get_where('tb_akses', ['id_akses' => $this->session->userdata('id_akses')])->row_array();
-            $data['user'] = $this->db->get_where('tb_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['akses'] = $this->akses;
+            $data['user'] = $this->user;
 
+            $data['title'] = 'Data Supplier';
             $this->load->view('templates/header', $data);
             $this->load->view('templates/admin_sidebar', $data);
             $this->load->view('templates/admin_topbar', $data);
-            $this->load->view('admin/v_admin_supplier_add', $data);
-            $this->load->view('templates/admin_footer');
+            $this->load->view('admin/v_supplier_add', $data);
+            $this->load->view('templates/footer');
         } else {
             $input = $this->input->post(null, true);
             $save = $this->Toko_Model->addSupplier($input);
-
             if ($save) {
-                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Supplier berhasil ditambahkan.</div>');
-                redirect('Admin/Admin_Supplier');
+                set_pesan('Supplier berhasil ditambahkan.');
+                redirect('Admin/Supplier');
             } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Supplier gagal ditambahkan!</div>');
-                redirect('Admin/Admin_Supplier/add');
+                set_pesan('Supplier gagal ditambahkan!', false);
+                redirect('Admin/Supplier/add');
             }
         }
     }
@@ -83,28 +83,28 @@ class Admin_Supplier extends CI_Controller
         $this->_validasi();
 
         if ($this->form_validation->run() == false) {
-            $data['title'] = "Data Supplier";
-
             //ambil data session login
-            $data['akses'] = $this->db->get_where('tb_akses', ['id_akses' => $this->session->userdata('id_akses')])->row_array();
-            $data['user'] = $this->db->get_where('tb_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['akses'] = $this->akses;
+            $data['user'] = $this->user;
 
             //model get supplier
             $data['supplier'] = $this->Toko_Model->getSupplier($id);
 
+            $data['title'] = "Data Supplier";
             $this->load->view('templates/header', $data);
             $this->load->view('templates/admin_sidebar', $data);
             $this->load->view('templates/admin_topbar', $data);
-            $this->load->view('admin/v_admin_supplier_edit', $data);
-            $this->load->view('templates/admin_footer');
+            $this->load->view('admin/v_supplier_edit', $data);
+            $this->load->view('templates/footer');
         } else {
             $input = $this->input->post(null, true);
             $update = $this->Toko_Model->updateSupplier($id, $input);
             if ($update) {
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Supplier berhasil diedit.</div>');
+                set_pesan('Supplier berhasil di-update.');
                 redirect('Admin/Admin_Supplier/index');
             } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Supplier gagal diedit!</div>');
+                set_pesan('Supplier gagal di-update!', false);
                 redirect('Admin/Admin_Supplier/edit/' . $id);
             }
         }
@@ -115,10 +115,11 @@ class Admin_Supplier extends CI_Controller
         $id = encode_php_tags($getId);
         $delete = $this->Toko_Model->deleteSupplier($id);
         if ($delete) {
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Supplier berhasil dihapus!</div>');
+            set_pesan('Supplier berhasil dihapus!', false);
+            redirect('Admin/Supplier');
         } else {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Supplier gagal dihapus!</div>');
+            set_pesan('Supplier gagal dihapus!', false);
+            redirect('Admin/Supplier');
         }
-        redirect('Admin/Admin_Supplier');
     }
 }

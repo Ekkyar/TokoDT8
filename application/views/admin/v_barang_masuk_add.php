@@ -22,7 +22,7 @@
             </div>
             <div class="card-body">
 
-                <?= $this->session->flashdata('message'); ?>
+                <?= $this->session->flashdata('pesan'); ?>
                 <?= form_open('', [], ['id_barang_masuk' => $id_barang_masuk, 'user_id' => $user['id_user']]); ?>
                 <div class="row form-group">
                     <label class="col-md-4 text-md-right" for="id_barang_masuk">ID Transaksi Barang Masuk</label>

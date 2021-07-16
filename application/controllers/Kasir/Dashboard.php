@@ -11,7 +11,7 @@ class Dashboard extends CI_Controller
             redirect('Auth/access_blocked');
         } else {
             $akses = $this->session->userdata('id_akses');
-            if ($akses != '1') {
+            if ($akses != '2') {
                 redirect('Auth/access_blocked');
             }
         }
@@ -55,8 +55,8 @@ class Dashboard extends CI_Controller
 
         $data['title'] = 'Dashboard';
         $this->load->view('templates/header', $data);
-        $this->load->view('templates/admin_sidebar', $data);
-        $this->load->view('templates/admin_topbar', $data);
+        $this->load->view('templates/kasir_sidebar', $data);
+        $this->load->view('templates/kasir_topbar', $data);
         $this->load->view('v_dashboard', $data);
         $this->load->view('templates/footer', $data);
     }

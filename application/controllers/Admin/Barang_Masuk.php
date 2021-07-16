@@ -15,6 +15,9 @@ class Barang_Masuk extends CI_Controller
                 redirect('Auth/access_blocked');
             }
         }
+        //ambil data session login
+        $this->akses = $this->db->get_where('tb_akses', ['id_akses' => $this->session->userdata('id_akses')])->row_array();
+        $this->user = $this->db->get_where('tb_user', ['username' => $this->session->userdata('username')])->row_array();
         //load model
         $this->load->model('Toko_Model');
         //form validation
@@ -23,21 +26,19 @@ class Barang_Masuk extends CI_Controller
 
     public function index()
     {
-        //title
-        $data['title'] = 'Barang Masuk';
-
         //ambil data session login
-        $data['akses'] = $this->db->get_where('tb_akses', ['id_akses' => $this->session->userdata('id_akses')])->row_array();
-        $data['user'] = $this->db->get_where('tb_user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['akses'] = $this->akses;
+        $data['user'] = $this->user;
 
         //model
         $data['barangmasuk'] = $this->Toko_Model->getBarangMasuk();
 
+        $data['title'] = 'Barang Masuk';
         $this->load->view('templates/header', $data);
         $this->load->view('templates/admin_sidebar', $data);
         $this->load->view('templates/admin_topbar', $data);
         $this->load->view('admin/v_barang_masuk', $data);
-        $this->load->view('templates/admin_footer');
+        $this->load->view('templates/footer');
     }
 
     private function _validasi()
@@ -52,11 +53,9 @@ class Barang_Masuk extends CI_Controller
     {
         $this->_validasi();
         if ($this->form_validation->run() == false) {
-            $data['title'] = "Barang Masuk";
-
             //ambil data session login
-            $data['akses'] = $this->db->get_where('tb_akses', ['id_akses' => $this->session->userdata('id_akses')])->row_array();
-            $data['user'] = $this->db->get_where('tb_user', ['username' => $this->session->userdata('username')])->row_array();
+            $data['akses'] = $this->akses;
+            $data['user'] = $this->user;
 
             //model
             $data['supplier'] = $this->Toko_Model->getAllSupplier();
@@ -71,20 +70,21 @@ class Barang_Masuk extends CI_Controller
             $number = str_pad($kode_tambah, 5, '0', STR_PAD_LEFT);
             $data['id_barang_masuk'] = $kode . $number;
 
+            $data['title'] = "Barang Masuk";
             $this->load->view('templates/header', $data);
             $this->load->view('templates/admin_sidebar', $data);
             $this->load->view('templates/admin_topbar', $data);
             $this->load->view('admin/v_barang_masuk_add', $data);
-            $this->load->view('templates/admin_footer', $data);
+            $this->load->view('templates/footer');
         } else {
             $input = $this->input->post(null, true);
             $insert = $this->Toko_Model->addBarangMasuk($input);
 
             if ($insert) {
-                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Barang masuk berhasil disimpan.</div>');
+                set_pesan('Barang masuk berhasil ditambahkan.');
                 redirect('Admin/Barang_Masuk');
             } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Barang masuk gagal disimpan!</div>');
+                set_pesan('Barang masuk gagal ditambahkan!', false);
                 redirect('Admin/Barang_Masuk/add');
             }
         }
@@ -95,9 +95,9 @@ class Barang_Masuk extends CI_Controller
         $id = encode_php_tags($getId);
         $delete = $this->Toko_Model->deleteBarangMasuk($id);
         if ($delete) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Barang Masuk telah dihapus!</div>');
+            set_pesan('Barang masuk telah dihapus!', false);
         } else {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Barang Masuk gagal dihapus!</div>');
+            set_pesan('Barang masuk gagal dihapus!', false);
         }
         redirect('Admin/Barang_Masuk');
     }

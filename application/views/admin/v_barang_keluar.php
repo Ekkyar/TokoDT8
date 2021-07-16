@@ -2,7 +2,7 @@
 <div class="container-fluid">
 
 
-    <?= $this->session->flashdata('message'); ?>
+    <?= $this->session->flashdata('pesan'); ?>
     <div class="card shadow-sm border-bottom-primary">
         <div class="card-header bg-white py-3">
             <div class="row">

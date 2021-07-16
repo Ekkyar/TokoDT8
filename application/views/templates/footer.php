@@ -5,7 +5,7 @@
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Toko DT8 <?= date('Y'); ?> </span>
+            <span>Copyright &copy; Toko DT8 2021 </span>
         </div>
     </div>
 </footer>
@@ -105,7 +105,6 @@
         table.buttons().container().appendTo('#dataTable_wrapper .col-md-5:eq(0)');
     });
 </script>
-<!-- End Script Cetak Laporan -->
 
 <!-- Script -->
 <script type="text/javascript">

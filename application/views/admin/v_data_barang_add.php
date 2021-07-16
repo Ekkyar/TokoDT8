@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <?= $this->session->flashdata('message'); ?>
+                <?= $this->session->flashdata('pesan'); ?>
                 <?= form_open('', [], ['stok' => 0]); ?>
                 <div class="row form-group">
                     <label class="col-md-3 text-md-right" for="id_barang">ID Barang</label>

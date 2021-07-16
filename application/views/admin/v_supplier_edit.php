@@ -9,7 +9,7 @@
                         </h4>
                     </div>
                     <div class="col-auto">
-                        <a href="<?= base_url('Admin/Admin_Supplier') ?>" class="btn btn-sm btn-secondary btn-icon-split">
+                        <a href="<?= base_url('Admin/Supplier') ?>" class="btn btn-sm btn-secondary btn-icon-split">
                             <span class="icon">
                                 <i class="fa fa-arrow-left"></i>
                             </span>
@@ -23,7 +23,7 @@
             <div class="card-body">
 
                 <?php foreach ($supplier as $s) : ?>
-                    <?= $this->session->flashdata('message'); ?>
+                    <?= $this->session->flashdata('pesan'); ?>
                     <?= form_open(); ?>
                     <div class="row form-group">
                         <label class="col-md-3 text-md-right" for="nama_supplier">Nama Supplier</label>

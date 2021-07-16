@@ -8,7 +8,7 @@
             </div>
             <div class="card-body">
 
-                <form action="<?= base_url('Admin/Cetak_Laporan') ?>" method="post" accept-charset="utf-8" target="_blank">
+                <form action="<?= base_url('Kasir/Cetak_Laporan') ?>" method="post" accept-charset="utf-8" target="_blank">
                     <div class="row form-group">
                         <label class="col-md-3 text-md-right" for="transaksi">Laporan Transaksi</label>
                         <div class="col-md-9">

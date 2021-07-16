@@ -1,7 +1,6 @@
 <!-- Container -->
 <div class="container-fluid">
 
-    <?= $this->session->flashdata('pesan'); ?>
     <div class="card shadow-sm border-bottom-primary">
         <div class="card-header bg-white py-3">
             <div class="row">
@@ -9,16 +8,6 @@
                     <h4 class="h5 align-middle m-0 font-weight-bold text-primary">
                         Barang
                     </h4>
-                </div>
-                <div class="col-auto">
-                    <a href="<?= base_url('Admin/Data_Barang/add') ?>" class="btn btn-sm btn-primary btn-icon-split">
-                        <span class="icon">
-                            <i class="fa fa-plus"></i>
-                        </span>
-                        <span class="text">
-                            Tambah Barang
-                        </span>
-                    </a>
                 </div>
             </div>
         </div>
@@ -32,7 +21,6 @@
                         <th>Jenis Barang</th>
                         <th>Stok</th>
                         <th>Satuan</th>
-                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,10 +36,6 @@
                                 <td><?= $b['nama_jenis']; ?></td>
                                 <td><?= $b['stok']; ?></td>
                                 <td><?= $b['nama_satuan']; ?></td>
-                                <td>
-                                    <a href="<?= base_url('Admin/Data_Barang/edit/') . $b['id_barang'] ?>" class="btn btn-warning btn-circle btn-sm"><i class="fa fa-edit"></i></a>
-                                    <a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('Admin/Data_Barang/delete/') . $b['id_barang'] ?>" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></a>
-                                </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else : ?>

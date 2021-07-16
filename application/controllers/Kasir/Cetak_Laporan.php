@@ -11,7 +11,7 @@ class Cetak_Laporan extends CI_Controller
             redirect('Auth/access_blocked');
         } else {
             $akses = $this->session->userdata('id_akses');
-            if ($akses != '1') {
+            if ($akses != '2') {
                 redirect('Auth/access_blocked');
             }
         }
@@ -34,11 +34,11 @@ class Cetak_Laporan extends CI_Controller
             $data['akses'] = $this->akses;
             $data['user'] = $this->user;
 
-            $data['title'] = 'Dashboard';
+            $data['title'] = 'Cetak Laporan';
             $this->load->view('templates/header', $data);
-            $this->load->view('templates/admin_sidebar', $data);
-            $this->load->view('templates/admin_topbar', $data);
-            $this->load->view('admin/v_cetak_laporan', $data);
+            $this->load->view('templates/kasir_sidebar', $data);
+            $this->load->view('templates/kasir_topbar', $data);
+            $this->load->view('kasir/v_cetak_laporan', $data);
             $this->load->view('templates/footer');
         } else {
             $input = $this->input->post(null, true);
@@ -54,6 +54,7 @@ class Cetak_Laporan extends CI_Controller
             } else {
                 $query = $this->Toko_Model->getBarangKeluar(null, null, ['mulai' => $mulai, 'akhir' => $akhir]);
             }
+
             $this->_cetak($query, $table, $tanggal);
         }
     }

@@ -22,6 +22,7 @@
             <i class="fas fa-fw fa-home"></i>
             <span>Dashboard</span></a>
         </li>
+
         <!-- Divider -->
         <hr class="sidebar-divider">
 
@@ -36,7 +37,7 @@
             <?php else : ?>
             <li class="nav-item">
             <?php endif; ?>
-            <a class="nav-link mt-0" href="<?= base_url('Admin/Admin_User'); ?>">
+            <a class="nav-link mt-0" href="<?= base_url('Admin/Data_User'); ?>">
                 <i class="fas fa-fw fa-user-cog"></i>
                 <span>Data User</span></a>
             </li>
@@ -56,7 +57,7 @@
                 <?php else : ?>
                 <li class="nav-item">
                 <?php endif; ?>
-                <a class="nav-link" href="<?= base_url('Admin/Admin_Supplier'); ?>">
+                <a class="nav-link" href="<?= base_url('Admin/Supplier'); ?>">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Data Supplier</span></a>
                 </li>
@@ -115,7 +116,6 @@
                                 <i class="fas fa-fw fa-upload"></i>
                                 <span>Barang Keluar</span></a>
                             </li>
-
                             <!-- End Heading Data Transaksi -->
 
                             <!-- Divider -->
@@ -136,7 +136,6 @@
                                     <i class="fas fa-fw fa-print"></i>
                                     <span>Cetak Laporan</span></a>
                                 </li>
-
                                 <!-- End Heading Data Laporan -->
 
                                 <!-- Divider -->
