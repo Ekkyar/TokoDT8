@@ -52,6 +52,34 @@
 
 <script src="<?= base_url(); ?>assets/vendor/gijgo/js/gijgo.min.js"></script>
 
+<!-- Penjualan Add -->
+<script>
+    $(function() {
+        $('body').on('keyup', '#bayar', function() {
+            let total = $('#total').val();
+            let uang = $(this).val();
+
+            $('#kembalian').val(uang - total);
+        });
+    });
+</script>
+
+<!-- Penjualan AddItem -->
+<script>
+    $(function() {
+        $('body').on('click', '.modal-body .btn-pilih', function() {
+            $('#qty').val('');
+
+            let barang_id = $(this).data('kode');
+            let stok = $(this).data('stok');
+
+            $('#barang_id').val(barang_id);
+            $('#qty').attr('placeholder', 'max. ' + stok);
+            $('#modalBarang').modal('hide');
+        });
+    });
+</script>
+
 <!-- Script Cetak Laporan -->
 <script type="text/javascript">
     $(function() {
@@ -105,6 +133,7 @@
         table.buttons().container().appendTo('#dataTable_wrapper .col-md-5:eq(0)');
     });
 </script>
+<!-- End Script Cetak Laporan -->
 
 <!-- Script -->
 <script type="text/javascript">
@@ -135,7 +164,7 @@
         total.val(Number(totalStok));
     });
 </script>
-<!--  -->
+<!-- End Script -->
 
 <!-- Script Chart -->
 <?php if ($this->uri->segment(2) == 'Dashboard') : ?>
@@ -307,6 +336,18 @@
 <?php endif; ?>
 <!-- End Script Chart -->
 
+<!-- Keranjang -->
+<script>
+    $(function() {
+        $('body').on('keyup', '#bayar', function() {
+            let total = $('#total').val();
+            let uang = $(this).val();
+
+            $('#kembalian').val(uang - total);
+        });
+    });
+</script>
+<!-- End Keranjang -->
 </body>
 
 </html>

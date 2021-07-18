@@ -12,6 +12,32 @@ class Toko_Model extends CI_Model
         }
     }
 
+    public function insert($table, $data)
+    {
+        return $this->db->insert($table, $data);
+    }
+
+    public function insert_batch($table, $data)
+    {
+        return $this->db->insert_batch($table, $data);
+    }
+
+    public function delete($table, $where)
+    {
+        return $this->db->delete($table, $where);
+    }
+
+    public function get_where($table, $where)
+    {
+        $query = $this->db->get_where($table, $where);
+
+        if ($query->num_rows() > 1) {
+            return $query->result();
+        } else {
+            return $query->row();
+        }
+    }
+
     //------------------------------ USER ------------------------------
     //get All 
     public function getAllUser()
@@ -306,5 +332,11 @@ class Toko_Model extends CI_Model
         $this->db->join('tb_satuan s', 'b.satuan_id=s.id_satuan');
         return $this->db->get_where('tb_barang b', ['id_barang' => $id])->row_array();
     }
-    //------------------------------  ------------------------------
+    //------------------------------ Transaksi ------------------------------
+    public function generateId($prefix = null, $table = null, $field = null)
+    {
+        $this->db->select_max($field);
+        $this->db->like($field, $prefix, 'after');
+        return $this->db->get($table)->row_array()[$field];
+    }
 }
