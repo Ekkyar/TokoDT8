@@ -2,7 +2,7 @@
 
 class Toko_Model extends CI_Model
 {
-
+    //------------------------------ Other Query ------------------------------
     public function get($table, $data = null, $where = null)
     {
         if ($data != null) {
@@ -38,29 +38,33 @@ class Toko_Model extends CI_Model
         }
     }
 
-    //------------------------------ USER ------------------------------
+    //------------------------------ User ------------------------------
     //get All 
     public function getAllUser()
     {
         return $this->db->get('tb_user')->result_array();
     }
+
     //get by id
     public function getUser($id_user)
     {
         $this->db->where('id_user', $id_user);
         return $this->db->get('tb_user')->result_array();
     }
+
     //add
     public function addUser($input_data)
     {
         return $this->db->insert('tb_user', $input_data);
     }
+
     //edit
     public function editUser($id, $input_data)
     {
         $this->db->where('id_user', $id);
         return $this->db->update('tb_user', $input_data);
     }
+
     //delete
     public function deleteUser($id)
     {
@@ -69,7 +73,7 @@ class Toko_Model extends CI_Model
     }
 
 
-    //------------------------------ AKSES ------------------------------
+    //------------------------------ Akses ------------------------------
     public function getAllAkses()
     {
         return $this->db->get('tb_akses')->result_array();
@@ -81,23 +85,27 @@ class Toko_Model extends CI_Model
     {
         return $this->db->get('tb_supplier')->result_array();
     }
+
     //get by id
     public function getSupplier($id)
     {
         $this->db->where('id_supplier', $id);
         return $this->db->get('tb_supplier')->result_array();
     }
+
     //add
     public function addSupplier($input)
     {
         return $this->db->insert('tb_supplier', $input);
     }
+
     //edit
     public function updateSupplier($id, $input)
     {
         $this->db->where('id_supplier', $id);
         return $this->db->update('tb_supplier', $input);
     }
+
     //delete
     public function deleteSupplier($id)
     {
@@ -111,23 +119,27 @@ class Toko_Model extends CI_Model
     {
         return $this->db->get('tb_jenis')->result_array();
     }
+
     //get by id
     public function getJenis($id)
     {
         $this->db->where('id_jenis', $id);
         return $this->db->get('tb_jenis')->result_array();
     }
+
     //add
     public function addJenis($input)
     {
         return $this->db->insert('tb_jenis', $input);
     }
+
     //edit
     public function updateJenis($id, $input)
     {
         $this->db->where('id_jenis', $id);
         return $this->db->update('tb_jenis', $input);
     }
+
     //delete
     public function deleteJenis($id)
     {
@@ -141,23 +153,27 @@ class Toko_Model extends CI_Model
     {
         return $this->db->get('tb_satuan')->result_array();
     }
+
     //get by id
     public function getSatuan($id)
     {
         $this->db->where('id_satuan', $id);
         return $this->db->get('tb_satuan')->result_array();
     }
+
     //add
     public function addSatuan($input)
     {
         return $this->db->insert('tb_satuan', $input);
     }
+
     //edit
     public function updateSatuan($id, $input)
     {
         $this->db->where('id_satuan', $id);
         return $this->db->update('tb_satuan', $input);
     }
+
     //delete
     public function deleteSatuan($id)
     {
@@ -166,7 +182,7 @@ class Toko_Model extends CI_Model
     }
 
     //------------------------------ Data Barang ------------------------------
-    // get
+    //get tb_barang join tb_jenis dan tb_satuan
     public function getBarang()
     {
         $this->db->join('tb_jenis j', 'b.jenis_id = j.id_jenis');
@@ -174,28 +190,33 @@ class Toko_Model extends CI_Model
         $this->db->order_by('id_barang');
         return $this->db->get('tb_barang b')->result_array();
     }
+
     //get by id
     public function getBarangId($id)
     {
         $this->db->where('id_barang', $id);
         return $this->db->get('tb_barang')->result_array();
     }
+
     //get all
     public function getAllBarang()
     {
         return $this->db->get('tb_barang')->result_array();
     }
+
     //add
     public function addBarang($input)
     {
         return $this->db->insert('tb_barang', $input);
     }
+
     //edit
     public function updateBarang($id, $input)
     {
         $this->db->where('id_barang', $id);
         return $this->db->update('tb_barang', $input);
     }
+
     //delete
     public function deleteBarang($id)
     {
@@ -228,11 +249,13 @@ class Toko_Model extends CI_Model
         $this->db->order_by('id_barang_masuk', 'DESC');
         return $this->db->get('tb_barang_masuk bm')->result_array();
     }
+
     //add
     public function addBarangMasuk($input)
     {
         return $this->db->insert('tb_barang_masuk', $input);
     }
+
     //delete
     public function deleteBarangMasuk($id)
     {
@@ -261,11 +284,13 @@ class Toko_Model extends CI_Model
         $this->db->order_by('id_barang_keluar', 'DESC');
         return $this->db->get('tb_barang_keluar bk')->result_array();
     }
+
     //add
     public function addBarangKeluar($input)
     {
         return $this->db->insert('tb_barang_keluar', $input);
     }
+
     //delete
     public function deleteBarangKeluar($id)
     {
@@ -273,8 +298,8 @@ class Toko_Model extends CI_Model
         return $this->db->delete('tb_barang_keluar');
     }
 
-    //------------------------------ DB Set ------------------------------
-    // get Max
+    //------------------------------ Operation ------------------------------
+    //get Max
     public function getMax($table, $field, $kode = null)
     {
         $this->db->select_max($field);
@@ -284,7 +309,7 @@ class Toko_Model extends CI_Model
         return $this->db->get($table)->row_array()[$field];
     }
 
-    // count
+    //count
     public function count($table)
     {
         return $this->db->count_all($table);
@@ -297,13 +322,14 @@ class Toko_Model extends CI_Model
         return $this->db->get($table)->row_array()[$field];
     }
 
-    // min
+    //min
     public function min($table, $field, $min)
     {
         $field = $field . ' <=';
         $this->db->where($field, $min);
         return $this->db->get($table)->result_array();
     }
+
     //chart barang masuk 
     public function chartBarangMasuk($bulan)
     {
@@ -311,6 +337,7 @@ class Toko_Model extends CI_Model
         $this->db->like('id_barang_masuk', $like, 'after');
         return count($this->db->get('tb_barang_masuk')->result_array());
     }
+
     //chart barang keluar
     public function chartBarangKeluar($bulan)
     {
@@ -318,6 +345,7 @@ class Toko_Model extends CI_Model
         $this->db->like('id_barang_keluar', $like, 'after');
         return count($this->db->get('tb_barang_keluar')->result_array());
     }
+
     //laporan
     public function laporan($table, $mulai, $akhir)
     {
@@ -326,12 +354,14 @@ class Toko_Model extends CI_Model
         $this->db->where($tgl . ' <=', $akhir);
         return $this->db->get($table)->result_array();
     }
+
     //cek stok
     public function cekStok($id)
     {
         $this->db->join('tb_satuan s', 'b.satuan_id=s.id_satuan');
         return $this->db->get_where('tb_barang b', ['id_barang' => $id])->row_array();
     }
+
     //------------------------------ Transaksi ------------------------------
     public function generateId($prefix = null, $table = null, $field = null)
     {

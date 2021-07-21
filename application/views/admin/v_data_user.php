@@ -5,9 +5,9 @@
         <div class="card-header bg-white py-3">
             <div class="row">
                 <div class="col">
-                    <h4 class="h5 align-middle m-0 font-weight-bold text-primary">
+                    <h5 class="align-middle m-0 font-weight-bold text-primary">
                         Data User
-                    </h4>
+                    </h5>
                 </div>
                 <div class="col-auto">
                     <a href="<?= base_url('Admin/Data_User/add') ?>" class="btn btn-sm btn-primary btn-icon-split">

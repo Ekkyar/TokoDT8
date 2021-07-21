@@ -63,8 +63,9 @@
         });
     });
 </script>
+<!-- End Penjualan Add -->
 
-<!-- Penjualan AddItem -->
+<!-- Penjualan Add Item -->
 <script>
     $(function() {
         $('body').on('click', '.modal-body .btn-pilih', function() {
@@ -79,6 +80,20 @@
         });
     });
 </script>
+<!-- End Penjualan Add Item -->
+
+<!-- Keranjang -->
+<script>
+    $(function() {
+        $('body').on('keyup', '#bayar', function() {
+            let total = $('#total').val();
+            let uang = $(this).val();
+
+            $('#kembalian').val(uang - total);
+        });
+    });
+</script>
+<!-- End Keranjang -->
 
 <!-- Script Cetak Laporan -->
 <script type="text/javascript">
@@ -335,19 +350,6 @@
     </script>
 <?php endif; ?>
 <!-- End Script Chart -->
-
-<!-- Keranjang -->
-<script>
-    $(function() {
-        $('body').on('keyup', '#bayar', function() {
-            let total = $('#total').val();
-            let uang = $(this).val();
-
-            $('#kembalian').val(uang - total);
-        });
-    });
-</script>
-<!-- End Keranjang -->
 </body>
 
 </html>

@@ -1,21 +1,49 @@
 <div class="container">
 
+    <?= $this->session->flashdata('pesan'); ?>
+    <div class="row">
+        <div class="col text-right">
+            <a href="<?= base_url('Admin/Data_User') ?>" class="btn btn-sm btn-secondary btn-icon-split">
+                <span class="icon">
+                    <i class="fa fa-arrow-left"></i>
+                </span>
+                <span class="text">
+                    Kembali
+                </span>
+            </a>
+        </div>
+    </div>
     <div class="row my-4">
         <div class="col-md-9 pb-4 pb-sm-0">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm">
-                            <h5 class="font-weight-light mb-0">Keranjang Pemesanan</h5>
+                            <h5 class="font-weight-light mb-0">Keranjang Penjualan</h5>
                             <span class="text-muted small">Daftar Barang</span>
                         </div>
-                        <div class="col-sm text-right">
-                            <a href="<?= base_url('Admin/Penjualan/add_item') ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah</a>
-                            <a onclick="return confirm('Data pemesanan akan dihapus. anda yakin ingin batal?')" href="<?= base_url('Admin/Penjualan/batal') ?>" class="btn btn-secondary"><i class="fa fa-times"></i> Batal</a>
+                        <div class="col-auto mt-3">
+                            <a href="<?= base_url('Admin/Penjualan/add_item') ?>" class="btn btn-primary btn-icon-split">
+                                <span class="icon">
+                                    <i class="fa fa-sm fa-plus"></i>
+                                </span>
+                                <span class="text">
+                                    Tambah
+                                </span>
+                            </a>
+                            <a onclick="return confirm('Data pemesanan akan dihapus. anda yakin ingin batal?')" href="<?= base_url('Admin/Penjualan/batal') ?>" class="btn btn-secondary btn-icon-split">
+                                <span class="icon">
+                                    <i class="fa fa-sm fa-eraser"></i>
+                                </span>
+                                <span class="text">
+                                    Reset
+                                </span>
+                            </a>
                         </div>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table table-hover mt-3 mb-0">
+
+                    <div class="mt-3 table-responsive">
+                        <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -30,7 +58,7 @@
                                 <?php
                                 if (!$keranjang) : ?>
                                     <tr>
-                                        <td class="text-center" colspan="6">
+                                        <td class=" text-center" colspan="6">
                                             Tidak ada barang dikeranjang
                                         </td>
                                     </tr>
@@ -45,7 +73,7 @@
                                             <td><?= format_uang($row->harga) ?></td>
                                             <td><?= format_uang($row->harga * $row->qty) ?></td>
                                             <td>
-                                                <a onclick="return confirm('Yakin ingin hapus?');" href="<?= base_url('Admin/Penjualan/delete_item/' . $row->id_item) ?>" class="badge badge-danger py-2 px-3">
+                                                <a onclick="return confirm('Apakah anda yakin ingin menghapus item?');" href="<?= base_url('Admin/Penjualan/delete_item/' . $row->id_item) ?>" class="btn btn-circle btn-sm btn-danger">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                             </td>
@@ -60,10 +88,9 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-body">
 
-                    <?= $this->session->flashdata('pesan'); ?>
                     <?= form_open(); ?>
                     <div class="form-group">
                         <label for="total">Total Harga</label>
@@ -97,7 +124,7 @@
                     <hr>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-block">
-                            <i class="fa fa-check"></i> Simpan
+                            <i class="fa fa-check"></i> Checkout
                         </button>
                     </div>
                     <?= form_close(); ?>

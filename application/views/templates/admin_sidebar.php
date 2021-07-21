@@ -95,77 +95,67 @@
                         Transaksi
                     </div>
 
-                    <!-- barangsementara -->
-                    <?php if ($title == 'Barang') : ?>
+                    <!-- Penjualan -->
+                    <?php if ($title == 'Penjualan') : ?>
                         <li class="nav-item active">
                         <?php else : ?>
                         <li class="nav-item">
                         <?php endif; ?>
-                        <a class="nav-link mt-0" href="<?= base_url('Admin/Barang'); ?>">
-                            <i class="fas fa-fw fa-clipboard"></i>
-                            <span>Barang</span></a>
+                        <a class="nav-link mt-0" href="<?= base_url('Admin/Penjualan'); ?>">
+                            <i class="fas fa-fw fa-shopping-cart"></i>
+                            <span>Penjualan</span></a>
                         </li>
-                        <!-- Penjualan -->
-                        <?php if ($title == 'Penjualan') : ?>
+
+                        <!-- Barang Masuk -->
+                        <?php if ($title == 'Barang Masuk') : ?>
                             <li class="nav-item active">
                             <?php else : ?>
                             <li class="nav-item">
                             <?php endif; ?>
-                            <a class="nav-link mt-0" href="<?= base_url('Admin/Penjualan'); ?>">
-                                <i class="fas fa-fw fa-shopping-cart"></i>
-                                <span>Penjualan</span></a>
+                            <a class="nav-link" href="<?= base_url('Admin/Barang_Masuk'); ?>">
+                                <i class="fas fa-fw fa-download"></i>
+                                <span>Barang Masuk</span></a>
                             </li>
 
-                            <!-- Barang Masuk -->
-                            <?php if ($title == 'Barang Masuk') : ?>
+                            <!-- Barang Keluar -->
+                            <?php if ($title == 'Barang Keluar') : ?>
                                 <li class="nav-item active">
                                 <?php else : ?>
                                 <li class="nav-item">
                                 <?php endif; ?>
-                                <a class="nav-link" href="<?= base_url('Admin/Barang_Masuk'); ?>">
-                                    <i class="fas fa-fw fa-download"></i>
-                                    <span>Barang Masuk</span></a>
+                                <a class="nav-link" href="<?= base_url('Admin/Barang_Keluar'); ?>">
+                                    <i class="fas fa-fw fa-upload"></i>
+                                    <span>Barang Keluar</span></a>
                                 </li>
+                                <!-- End Heading Data Transaksi -->
 
-                                <!-- Barang Keluar -->
-                                <?php if ($title == 'Barang Keluar') : ?>
+                                <!-- Divider -->
+                                <hr class="sidebar-divider">
+
+                                <!--Heading Data Laporan -->
+                                <div class="sidebar-heading">
+                                    Laporan
+                                </div>
+
+                                <!-- Cetak Laporan -->
+                                <?php if ($title == 'Cetak Laporan') : ?>
                                     <li class="nav-item active">
                                     <?php else : ?>
                                     <li class="nav-item">
                                     <?php endif; ?>
-                                    <a class="nav-link" href="<?= base_url('Admin/Barang_Keluar'); ?>">
-                                        <i class="fas fa-fw fa-upload"></i>
-                                        <span>Barang Keluar</span></a>
+                                    <a class="nav-link" href="<?= base_url('Admin/Cetak_Laporan'); ?>">
+                                        <i class="fas fa-fw fa-print"></i>
+                                        <span>Cetak Laporan</span></a>
                                     </li>
-                                    <!-- End Heading Data Transaksi -->
+                                    <!-- End Heading Data Laporan -->
 
                                     <!-- Divider -->
-                                    <hr class="sidebar-divider">
+                                    <hr class="sidebar-divider d-none d-md-block">
 
-                                    <!--Heading Data Laporan -->
-                                    <div class="sidebar-heading">
-                                        Laporan
+                                    <!-- Sidebar Toggler (Sidebar) -->
+                                    <div class="text-center d-none d-md-inline">
+                                        <button class="rounded-circle border-0" id="sidebarToggle"></button>
                                     </div>
-
-                                    <!-- Cetak Laporan -->
-                                    <?php if ($title == 'Cetak Laporan') : ?>
-                                        <li class="nav-item active">
-                                        <?php else : ?>
-                                        <li class="nav-item">
-                                        <?php endif; ?>
-                                        <a class="nav-link" href="<?= base_url('Admin/Cetak_Laporan'); ?>">
-                                            <i class="fas fa-fw fa-print"></i>
-                                            <span>Cetak Laporan</span></a>
-                                        </li>
-                                        <!-- End Heading Data Laporan -->
-
-                                        <!-- Divider -->
-                                        <hr class="sidebar-divider d-none d-md-block">
-
-                                        <!-- Sidebar Toggler (Sidebar) -->
-                                        <div class="text-center d-none d-md-inline">
-                                            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-                                        </div>
 
 </ul>
 <!-- End of Sidebar -->
