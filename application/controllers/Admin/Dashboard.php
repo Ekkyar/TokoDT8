@@ -33,14 +33,14 @@ class Dashboard extends CI_Controller
         //model
         $data['barang'] = $this->Toko_Model->count('tb_barang');
         $data['barang_masuk'] = $this->Toko_Model->count('tb_barang_masuk');
-        $data['barang_keluar'] = $this->Toko_Model->count('tb_barang_keluar');
+        $data['barang_keluar'] = $this->Toko_Model->count('tb_transaksi');
         $data['supplier'] = $this->Toko_Model->count('tb_supplier');
         $data['users'] = $this->Toko_Model->count('tb_user');
         $data['stok'] = $this->Toko_Model->sum('tb_barang', 'stok');
         $data['barang_min'] = $this->Toko_Model->min('tb_barang', 'stok', 10);
         $data['transaksi'] = [
             'barang_masuk' => $this->Toko_Model->getBarangMasuk(5),
-            'barang_keluar' => $this->Toko_Model->getBarangKeluar(5)
+            'barang_keluar' => $this->Toko_Model->getTransaksi(5)
         ];
 
         // Line Chart

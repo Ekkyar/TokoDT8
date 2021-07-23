@@ -224,15 +224,10 @@ class Toko_Model extends CI_Model
         return $this->db->delete('tb_barang');
     }
 
-    //------------------------------ Barang Masuk ------------------------------
-    // get
+    //------------------------------ Chart Barang Masuk ------------------------------
     public function getBarangMasuk($limit = null, $id_barang = null, $range = null)
     {
         $this->db->select('*');
-        $this->db->join('tb_user u', 'bm.user_id = u.id_user');
-        $this->db->join('tb_supplier sp', 'bm.supplier_id = sp.id_supplier');
-        $this->db->join('tb_barang b', 'bm.barang_id = b.id_barang');
-        $this->db->join('tb_satuan s', 'b.satuan_id = s.id_satuan');
         if ($limit != null) {
             $this->db->limit($limit);
         }
@@ -242,60 +237,49 @@ class Toko_Model extends CI_Model
         }
 
         if ($range != null) {
-            $this->db->where('tanggal_masuk' . ' >=', $range['mulai']);
-            $this->db->where('tanggal_masuk' . ' <=', $range['akhir']);
+            $this->db->where('tanggal' . ' >=', $range['mulai']);
+            $this->db->where('tanggal' . ' <=', $range['akhir']);
         }
 
         $this->db->order_by('id_barang_masuk', 'DESC');
         return $this->db->get('tb_barang_masuk bm')->result_array();
     }
 
-    //add
-    public function addBarangMasuk($input)
+    //chart barang masuk 
+    public function chartBarangMasuk($bulan)
     {
-        return $this->db->insert('tb_barang_masuk', $input);
+        $like = 'BM' . date('y') . $bulan;
+        $this->db->like('id_barang_masuk', $like, 'after');
+        return count($this->db->get('tb_barang_masuk')->result_array());
     }
 
-    //delete
-    public function deleteBarangMasuk($id)
-    {
-        $this->db->where('id_barang_masuk', $id);
-        return $this->db->delete('tb_barang_masuk');
-    }
-
-    //------------------------------ Barang Keluar ------------------------------
-    //get
-    public function getBarangKeluar($limit = null, $id_barang = null, $range = null)
+    //------------------------------ Chart Barang Keluar ------------------------------
+    public function getTransaksi($limit = null, $id_barang = null, $range = null)
     {
         $this->db->select('*');
-        $this->db->join('tb_user u', 'bk.user_id = u.id_user');
-        $this->db->join('tb_barang b', 'bk.barang_id = b.id_barang');
-        $this->db->join('tb_satuan s', 'b.satuan_id = s.id_satuan');
         if ($limit != null) {
             $this->db->limit($limit);
         }
+
         if ($id_barang != null) {
             $this->db->where('id_barang', $id_barang);
         }
+
         if ($range != null) {
-            $this->db->where('tanggal_keluar' . ' >=', $range['mulai']);
-            $this->db->where('tanggal_keluar' . ' <=', $range['akhir']);
+            $this->db->where('tanggal' . ' >=', $range['mulai']);
+            $this->db->where('tanggal' . ' <=', $range['akhir']);
         }
-        $this->db->order_by('id_barang_keluar', 'DESC');
-        return $this->db->get('tb_barang_keluar bk')->result_array();
+
+        $this->db->order_by('id_transaksi', 'DESC');
+        return $this->db->get('tb_transaksi bm')->result_array();
     }
 
-    //add
-    public function addBarangKeluar($input)
+    //chart barang keluar
+    public function chartBarangKeluar($bulan)
     {
-        return $this->db->insert('tb_barang_keluar', $input);
-    }
-
-    //delete
-    public function deleteBarangKeluar($id)
-    {
-        $this->db->where('id_barang_keluar', $id);
-        return $this->db->delete('tb_barang_keluar');
+        $like = 'T' . date('y') . $bulan;
+        $this->db->like('id_transaksi', $like, 'after');
+        return count($this->db->get('tb_transaksi')->result_array());
     }
 
     //------------------------------ Operation ------------------------------
@@ -330,21 +314,7 @@ class Toko_Model extends CI_Model
         return $this->db->get($table)->result_array();
     }
 
-    //chart barang masuk 
-    public function chartBarangMasuk($bulan)
-    {
-        $like = 'T-BM-' . date('y') . $bulan;
-        $this->db->like('id_barang_masuk', $like, 'after');
-        return count($this->db->get('tb_barang_masuk')->result_array());
-    }
 
-    //chart barang keluar
-    public function chartBarangKeluar($bulan)
-    {
-        $like = 'T-BK-' . date('y') . $bulan;
-        $this->db->like('id_barang_keluar', $like, 'after');
-        return count($this->db->get('tb_barang_keluar')->result_array());
-    }
 
     //laporan
     public function laporan($table, $mulai, $akhir)

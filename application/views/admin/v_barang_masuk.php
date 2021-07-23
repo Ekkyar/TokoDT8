@@ -1,38 +1,39 @@
 <!-- Container -->
-<div class="container-fluid">
+<div class="container">
 
     <?= $this->session->flashdata('pesan'); ?>
     <div class="card shadow-sm border-bottom-primary">
         <div class="card-header bg-white py-3">
             <div class="row">
                 <div class="col">
-                    <h4 class="h5 align-middle m-0 font-weight-bold text-primary">
-                        Riwayat Data Barang Masuk
-                    </h4>
+                    <h5 class="align-middle m-0 font-weight-bold text-primary">
+                        Riwayat Transaksi Barang Masuk
+                    </h5>
                 </div>
                 <div class="col-auto">
-                    <a href="<?= base_url('Admin/Barang_Masuk/add') ?>" class="btn btn-sm btn-primary btn-icon-split">
+                    <a href="<?= base_url('Admin/Barang_Masuk/keranjang') ?>" class="btn btn-sm btn-primary btn-icon-split">
                         <span class="icon">
-                            <i class="fa fa-plus"></i>
+                            <i class="fa fa-user-plus"></i>
                         </span>
                         <span class="text">
-                            Input Barang Masuk
+                            Tambah Barang Masuk
                         </span>
                     </a>
                 </div>
             </div>
         </div>
-        <div class="table-responsive">
+
+        <!-- tabel -->
+        <div class="mt-2 table-responsive">
             <table class="table table-striped w-100 dt-responsive nowrap" id="dataTable">
                 <thead>
                     <tr>
-                        <th>No. </th>
-                        <th>No Transaksi</th>
-                        <th>Tanggal Masuk</th>
-                        <th>Supplier</th>
-                        <th>Nama Barang</th>
-                        <th>Jumlah Masuk</th>
+                        <th width="30">No.</th>
+                        <th>ID Barang Masuk</th>
+                        <th>Tanggal</th>
                         <th>User</th>
+                        <th>Supplier</th>
+                        <th>Total Harga</th>
                         <th>Hapus</th>
                     </tr>
                 </thead>
@@ -40,32 +41,43 @@
                     <?php
                     $no = 1;
                     if ($barangmasuk) :
-                        foreach ($barangmasuk as $bm) :
-                    ?>
+                        foreach ($barangmasuk as $row) : ?>
                             <tr>
-                                <td><?= $no++; ?></td>
-                                <td><?= $bm['id_barang_masuk']; ?></td>
-                                <td><?= $bm['tanggal_masuk']; ?></td>
-                                <td><?= $bm['nama_supplier']; ?></td>
-                                <td><?= $bm['nama_barang']; ?></td>
-                                <td><?= $bm['jumlah_masuk'] . ' ' . $bm['nama_satuan']; ?></td>
-                                <td><?= $bm['nama']; ?></td>
+                                <td><?= $no++; ?>.</td>
                                 <td>
-                                    <a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('Admin/Barang_Masuk/delete/') . $bm['id_barang_masuk'] ?>" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></a>
+                                    <a href="<?= base_url('Admin/Barang_Masuk/detail/') . $row->id_barang_masuk; ?>">
+                                        <?= $row->id_barang_masuk; ?>
+                                    </a>
+                                </td>
+                                <td>
+                                    <!-- <= date('d M Y', $user['date_created']); ?> -->
+                                    <?= date($row->tanggal); ?>
+                                </td>
+                                <td><?= $row->nama ?></td>
+                                <td><?= $row->nama_supplier ?></td>
+                                <td><?= format_uang($row->total); ?></td>
+                                <td>
+                                    <a onclick="return confirm('Apakah anda yakin ingin hapus data?')" href="<?= base_url('Admin/Barang_Masuk/delete/') . $row->id_barang_masuk; ?>" class="btn btn-circle btn-sm btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else : ?>
                         <tr>
-                            <td colspan="8" class="text-center">
+                            <td colspan="7" class="text-center">
                                 Data Kosong
                             </td>
                         </tr>
                     <?php endif; ?>
+
                 </tbody>
             </table>
+            <!-- End tabel -->
+
         </div>
     </div>
+
 
 </div>
 <!-- End Container -->

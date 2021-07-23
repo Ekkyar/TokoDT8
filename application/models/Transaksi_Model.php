@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Transaksi_Model extends CI_Model
 {
+    //-------------------------------------- Penjualan------------------------------------
     // ambil data transaksi/penjualan 
     public function getTransaksi($id = null)
     {
@@ -60,16 +61,89 @@ class Transaksi_Model extends CI_Model
         return $this->db->get('tb_transaksi_detail td')->result();
     }
 
-    public function getTotalTransaksi($bln = null, $custom = [])
+    // public function getTotalTransaksi($bln = null, $custom = [])
+    // {
+    //     if ($bln != null) {
+    //         $this->db->like('tanggal', $bln, 'after');
+    //     }
+    //     if ($custom != null) {
+    //         $this->db->where('tanggal' . ' >=', $custom[0]);
+    //         $this->db->where('tanggal' . ' <=', $custom[1]);
+    //     }
+    //     $this->db->select_sum('total', 'totalTransaksi');
+    //     return $this->db->get('tb_transaksi')->row()->totalTransaksi;
+    // }
+
+    //-------------------------------------- Barang Masuk------------------------------------
+    // ambil data transaksi/penjualan 
+    public function getBarangMasuk($id = null)
     {
-        if ($bln != null) {
-            $this->db->like('tanggal', $bln, 'after');
+        if ($id == null) {
+            $this->db->join('tb_user u', 'u.id_user=bm.user_id');
+            $this->db->join('tb_supplier s', 's.id_supplier=bm.supplier_id');
+            return $this->db->get('tb_barang_masuk bm')->result();
+        } else {
+            $this->db->join('tb_user u', 'u.id_user=bm.user_id');
+            $this->db->join('tb_supplier s', 's.id_supplier=bm.supplier_id');
+            return $this->db->get_where('tb_barang_masuk bm', ['id_barang_masuk' => $id])->row();
         }
-        if ($custom != null) {
-            $this->db->where('tanggal' . ' >=', $custom[0]);
-            $this->db->where('tanggal' . ' <=', $custom[1]);
-        }
-        $this->db->select_sum('total', 'totalTransaksi');
-        return $this->db->get('tb_transaksi')->row()->totalTransaksi;
     }
+
+    // ambil data keranjang join tb_barang
+    public function getKeranjangMasuk($where)
+    {
+        $this->db->select('km.id_item, b.id_barang, b.nama_barang, km.qty, km.harga_masuk');
+        $this->db->join('tb_barang b', 'km.barang_id=b.id_barang');
+        return $this->db->get_where('tb_keranjang_masuk km', $where)->result();
+    }
+
+    // ambil data keranjang join tb_barang (Total Keranjang (Jumlah Barang + Harga Barang))
+    public function getTotalKeranjangMasuk($where)
+    {
+        $keranjang = $this->db->get_where('tb_keranjang_masuk km', $where)->result();
+
+        $subtotal = [];
+        foreach ($keranjang as $km) {
+            $subtotal[] = $km->qty * $km->harga_masuk;
+        }
+
+        return array_sum($subtotal);
+    }
+
+    // cek item keranjang
+    public function cekItemMasuk($where)
+    {
+        return $this->db->get_where('tb_keranjang_masuk', $where)->num_rows();
+    }
+
+    // update stok setelah stok di ambil ke keranjang
+    public function updateQtyKeranjangMasuk($qty = 0, $where)
+    {
+        $getQty = $this->db->get_where('tb_keranjang_masuk', $where)->row()->qty;
+        $result = (int) $getQty + (int) $qty;
+
+        return $this->db->update('tb_keranjang_masuk', ['qty' => $result], $where);
+    }
+
+    // ambil data tb_detail_transaksi join tb_barang(id)
+    public function getDetailBarangMasuk($id)
+    {
+        $this->db->select("b.nama_barang, bd.harga_masuk, bd.qty, bd.subtotal, (bd.subtotal/bd.qty) as harga");
+        $this->db->join('tb_barang b', 'b.id_barang=bd.barang_id');
+        $this->db->where('barang_masuk_id', $id);
+        return $this->db->get('tb_barang_masuk_detail bd')->result();
+    }
+
+    // public function getTotalBarangMasuk($bln = null, $custom = [])
+    // {
+    //     if ($bln != null) {
+    //         $this->db->like('tanggal', $bln, 'after');
+    //     }
+    //     if ($custom != null) {
+    //         $this->db->where('tanggal' . ' >=', $custom[0]);
+    //         $this->db->where('tanggal' . ' <=', $custom[1]);
+    //     }
+    //     $this->db->select_sum('total', 'totalTransaksi');
+    //     return $this->db->get('tb_transaksi')->row()->totalTransaksi;
+    // }
 }

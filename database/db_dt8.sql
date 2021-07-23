@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 18, 2021 at 10:09 PM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.9
+-- Generation Time: Jul 23, 2021 at 06:55 PM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 7.3.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -52,6 +51,7 @@ CREATE TABLE `tb_barang` (
   `nama_barang` varchar(255) NOT NULL,
   `stok` int(11) NOT NULL,
   `harga` int(11) NOT NULL,
+  `harga_masuk` int(11) NOT NULL,
   `satuan_id` int(11) NOT NULL,
   `jenis_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -60,42 +60,13 @@ CREATE TABLE `tb_barang` (
 -- Dumping data for table `tb_barang`
 --
 
-INSERT INTO `tb_barang` (`id_barang`, `nama_barang`, `stok`, `harga`, `satuan_id`, `jenis_id`) VALUES
-('B000001', 'Surya 12', 150, 18500, 2, 1),
-('B000002', 'Surya 16', 100, 24000, 2, 1),
-('B000003', 'Surya Pro 16', 0, 20241, 2, 1),
-('B000004', 'Surya Pro Mild 16', 0, 20410, 2, 1),
-('B000005', 'Sampoerna Mild 12', 0, 17500, 2, 1),
-('B000006', 'Sampoerna MILD 16', 50, 24000, 2, 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tb_barang_keluar`
---
-
-CREATE TABLE `tb_barang_keluar` (
-  `id_barang_keluar` char(16) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `barang_id` char(7) NOT NULL,
-  `jumlah_keluar` int(11) NOT NULL,
-  `tanggal_keluar` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `tb_barang_keluar`
---
-
-INSERT INTO `tb_barang_keluar` (`id_barang_keluar`, `user_id`, `barang_id`, `jumlah_keluar`, `tanggal_keluar`) VALUES
-('T-BK-21071800001', 1, 'B000001', 50, '2021-07-18');
-
---
--- Triggers `tb_barang_keluar`
---
-DELIMITER $$
-CREATE TRIGGER `update_stok_keluar` BEFORE INSERT ON `tb_barang_keluar` FOR EACH ROW UPDATE tb_barang SET tb_barang.stok = tb_barang.stok - NEW.jumlah_keluar WHERE tb_barang.id_barang = NEW.barang_id
-$$
-DELIMITER ;
+INSERT INTO `tb_barang` (`id_barang`, `nama_barang`, `stok`, `harga`, `harga_masuk`, `satuan_id`, `jenis_id`) VALUES
+('B000001', 'Surya 12', 200, 18500, 19000, 2, 1),
+('B000002', 'Surya 16', 100, 24000, 25000, 2, 1),
+('B000003', 'Surya Pro 16', 0, 20241, 21000, 2, 1),
+('B000004', 'Surya Pro Mild 16', 0, 20410, 0, 2, 1),
+('B000005', 'Sampoerna Mild 12', 0, 17500, 0, 2, 1),
+('B000006', 'Sampoerna MILD 16', 50, 24000, 0, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -104,28 +75,48 @@ DELIMITER ;
 --
 
 CREATE TABLE `tb_barang_masuk` (
-  `id_barang_masuk` char(16) NOT NULL,
-  `supplier_id` int(11) NOT NULL,
+  `id_barang_masuk` char(10) NOT NULL,
+  `tanggal` date NOT NULL,
   `user_id` int(11) NOT NULL,
-  `barang_id` char(7) NOT NULL,
-  `jumlah_masuk` int(11) NOT NULL,
-  `tanggal_masuk` date NOT NULL
+  `supplier_id` int(11) NOT NULL,
+  `total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tb_barang_masuk`
 --
 
-INSERT INTO `tb_barang_masuk` (`id_barang_masuk`, `supplier_id`, `user_id`, `barang_id`, `jumlah_masuk`, `tanggal_masuk`) VALUES
-('T-BM-21071800001', 1, 1, 'B000002', 100, '2021-07-18'),
-('T-BM-21071800002', 1, 1, 'B000001', 150, '2021-07-18'),
-('T-BM-21071800003', 1, 1, 'B000006', 50, '2021-07-19');
+INSERT INTO `tb_barang_masuk` (`id_barang_masuk`, `tanggal`, `user_id`, `supplier_id`, `total`) VALUES
+('BM21072300', '2021-07-23', 1, 1, 975000),
+('BM21072330', '2021-07-23', 1, 1, 950000);
+
+-- --------------------------------------------------------
 
 --
--- Triggers `tb_barang_masuk`
+-- Table structure for table `tb_barang_masuk_detail`
+--
+
+CREATE TABLE `tb_barang_masuk_detail` (
+  `barang_masuk_id` char(10) CHARACTER SET utf8 NOT NULL,
+  `barang_id` char(8) CHARACTER SET utf8 NOT NULL,
+  `harga_masuk` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `subtotal` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_barang_masuk_detail`
+--
+
+INSERT INTO `tb_barang_masuk_detail` (`barang_masuk_id`, `barang_id`, `harga_masuk`, `qty`, `subtotal`) VALUES
+('BM21072300', 'B000001', 19500, 50, 975000),
+('BM21072330', 'B000001', 19000, 50, 950000);
+
+--
+-- Triggers `tb_barang_masuk_detail`
 --
 DELIMITER $$
-CREATE TRIGGER `update_stok_masuk` BEFORE INSERT ON `tb_barang_masuk` FOR EACH ROW UPDATE tb_barang SET tb_barang.stok = tb_barang.stok + NEW.jumlah_masuk WHERE tb_barang.id_barang = NEW.barang_id
+CREATE TRIGGER `update_harga_masuk` AFTER INSERT ON `tb_barang_masuk_detail` FOR EACH ROW UPDATE tb_barang SET tb_barang.harga_masuk = NEW.harga_masuk WHERE tb_barang.id_barang = NEW.barang_id
 $$
 DELIMITER ;
 
@@ -171,6 +162,32 @@ $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `reset_stok` BEFORE DELETE ON `tb_keranjang` FOR EACH ROW UPDATE tb_barang SET stok = stok + OLD.qty WHERE tb_barang.id_barang = OLD.barang_id
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_keranjang_masuk`
+--
+
+CREATE TABLE `tb_keranjang_masuk` (
+  `id_item` int(11) NOT NULL,
+  `barang_id` char(7) CHARACTER SET utf8 NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `harga_masuk` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Triggers `tb_keranjang_masuk`
+--
+DELIMITER $$
+CREATE TRIGGER `reset_tambah_stok` BEFORE DELETE ON `tb_keranjang_masuk` FOR EACH ROW UPDATE tb_barang SET stok = stok - OLD.qty WHERE tb_barang.id_barang = OLD.barang_id
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `tambah_stok` AFTER INSERT ON `tb_keranjang_masuk` FOR EACH ROW UPDATE tb_barang SET stok = stok + NEW.qty WHERE tb_barang.id_barang = NEW.barang_id
 $$
 DELIMITER ;
 
@@ -236,7 +253,10 @@ CREATE TABLE `tb_transaksi` (
 --
 
 INSERT INTO `tb_transaksi` (`id_transaksi`, `tanggal`, `user_id`, `total`, `bayar`, `kembalian`) VALUES
-('T210718001', '2021-07-18', 1, 925000, 950000, 25000);
+('T210718001', '2021-07-18', 1, 925000, 950000, 25000),
+('T210722001', '2021-07-22', 1, 600000, 600000, 0),
+('T210723001', '2021-07-23', 1, 1200000, 1200000, 0),
+('T210723002', '2021-07-23', 1, 1200000, 1200000, 0);
 
 -- --------------------------------------------------------
 
@@ -256,7 +276,10 @@ CREATE TABLE `tb_transaksi_detail` (
 --
 
 INSERT INTO `tb_transaksi_detail` (`transaksi_id`, `barang_id`, `qty`, `subtotal`) VALUES
-('T210718001', 'B000001', 50, 925000);
+('T210718001', 'B000001', 50, 925000),
+('T210722001', 'B000006', 25, 600000),
+('T210723001', 'B000002', 50, 1200000),
+('T210723002', 'B000002', 50, 1200000);
 
 -- --------------------------------------------------------
 
@@ -304,20 +327,18 @@ ALTER TABLE `tb_barang`
   ADD KEY `satuan_id` (`satuan_id`) USING BTREE;
 
 --
--- Indexes for table `tb_barang_keluar`
---
-ALTER TABLE `tb_barang_keluar`
-  ADD PRIMARY KEY (`id_barang_keluar`),
-  ADD KEY `id_user` (`user_id`) USING BTREE,
-  ADD KEY `barang_id` (`barang_id`);
-
---
 -- Indexes for table `tb_barang_masuk`
 --
 ALTER TABLE `tb_barang_masuk`
-  ADD PRIMARY KEY (`id_barang_masuk`),
+  ADD PRIMARY KEY (`id_barang_masuk`) USING BTREE,
   ADD KEY `supplier_id` (`supplier_id`),
-  ADD KEY `id_user` (`user_id`) USING BTREE,
+  ADD KEY `user_id` (`user_id`) USING BTREE;
+
+--
+-- Indexes for table `tb_barang_masuk_detail`
+--
+ALTER TABLE `tb_barang_masuk_detail`
+  ADD KEY `barang_masuk_id` (`barang_masuk_id`),
   ADD KEY `barang_id` (`barang_id`);
 
 --
@@ -330,6 +351,13 @@ ALTER TABLE `tb_jenis`
 -- Indexes for table `tb_keranjang`
 --
 ALTER TABLE `tb_keranjang`
+  ADD PRIMARY KEY (`id_item`),
+  ADD KEY `barang_id` (`barang_id`);
+
+--
+-- Indexes for table `tb_keranjang_masuk`
+--
+ALTER TABLE `tb_keranjang_masuk`
   ADD PRIMARY KEY (`id_item`),
   ADD KEY `barang_id` (`barang_id`);
 
@@ -350,8 +378,7 @@ ALTER TABLE `tb_supplier`
 --
 ALTER TABLE `tb_transaksi`
   ADD PRIMARY KEY (`id_transaksi`),
-  ADD KEY `user_id` (`id_transaksi`),
-  ADD KEY `transaksi_ibfk_1` (`user_id`);
+  ADD KEY `user_id` (`user_id`) USING BTREE;
 
 --
 -- Indexes for table `tb_transaksi_detail`
@@ -412,25 +439,30 @@ ALTER TABLE `tb_barang`
   ADD CONSTRAINT `barang_ibfk_2` FOREIGN KEY (`jenis_id`) REFERENCES `tb_jenis` (`id_jenis`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `tb_barang_keluar`
---
-ALTER TABLE `tb_barang_keluar`
-  ADD CONSTRAINT `barang_keluar_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `tb_user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `barang_keluar_ibfk_2` FOREIGN KEY (`barang_id`) REFERENCES `tb_barang` (`id_barang`) ON UPDATE CASCADE;
-
---
 -- Constraints for table `tb_barang_masuk`
 --
 ALTER TABLE `tb_barang_masuk`
   ADD CONSTRAINT `barang_masuk_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `tb_user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `barang_masuk_ibfk_2` FOREIGN KEY (`supplier_id`) REFERENCES `tb_supplier` (`id_supplier`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `barang_masuk_ibfk_3` FOREIGN KEY (`barang_id`) REFERENCES `tb_barang` (`id_barang`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `barang_masuk_ibfk_2` FOREIGN KEY (`supplier_id`) REFERENCES `tb_supplier` (`id_supplier`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tb_barang_masuk_detail`
+--
+ALTER TABLE `tb_barang_masuk_detail`
+  ADD CONSTRAINT `barang_masuk_detail_ibfk_1` FOREIGN KEY (`barang_masuk_id`) REFERENCES `tb_barang_masuk` (`id_barang_masuk`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `barang_masuk_detail_ibfk_2` FOREIGN KEY (`barang_id`) REFERENCES `tb_barang` (`id_barang`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_keranjang`
 --
 ALTER TABLE `tb_keranjang`
   ADD CONSTRAINT `keranjang_ibfk_1` FOREIGN KEY (`barang_id`) REFERENCES `tb_barang` (`id_barang`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tb_keranjang_masuk`
+--
+ALTER TABLE `tb_keranjang_masuk`
+  ADD CONSTRAINT `keranjang_masuk_ibfk_1` FOREIGN KEY (`barang_id`) REFERENCES `tb_barang` (`id_barang`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tb_transaksi`

@@ -52,19 +52,6 @@
 
 <script src="<?= base_url(); ?>assets/vendor/gijgo/js/gijgo.min.js"></script>
 
-<!-- Penjualan Add -->
-<script>
-    $(function() {
-        $('body').on('keyup', '#bayar', function() {
-            let total = $('#total').val();
-            let uang = $(this).val();
-
-            $('#kembalian').val(uang - total);
-        });
-    });
-</script>
-<!-- End Penjualan Add -->
-
 <!-- Penjualan Add Item -->
 <script>
     $(function() {

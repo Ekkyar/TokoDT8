@@ -109,12 +109,12 @@ class Penjualan extends CI_Controller
                     //Simpan detail transaksi
                     $this->Toko_Model->insert_batch('tb_transaksi_detail', $data_detail);
                     //bersihkan keranjang
-                    $this->Toko_Model->delete('tb_keranjang', ['user_id' => $id_user]);
+                    $this->db->truncate('tb_keranjang', ['user_id' => $id_user]);
 
                     set_pesan('Penjualan berhasil disimpan.');
                     redirect('Admin/Penjualan/detail/' . $id_transaksi);
                 } else {
-                    set_pesan('Maaf. Anda belum memasukkan barang yang akan dibeli!', false);
+                    set_pesan('Anda belum memasukkan barang yang akan di-checkout!', false);
                     redirect('Admin/Penjualan/keranjang');
                 }
             } else {
