@@ -13,12 +13,12 @@
                         <label class="col-md-3 text-md-right" for="transaksi">Laporan Transaksi</label>
                         <div class="col-md-9">
                             <div class="custom-control custom-radio">
-                                <input value="tb_barang_masuk" type="radio" id="tb_barang_masuk" name="transaksi" class="custom-control-input">
-                                <label class="custom-control-label" for="tb_barang_masuk">Barang Masuk</label>
+                                <input value="tb_barang_masuk_detail" type="radio" id="tb_barang_masuk_detail" name="transaksi" class="custom-control-input">
+                                <label class="custom-control-label" for="tb_barang_masuk_detail">Barang Masuk</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input value="tb_barang_keluar" type="radio" id="tb_barang_keluar" name="transaksi" class="custom-control-input">
-                                <label class="custom-control-label" for="tb_barang_keluar">Barang Keluar</label>
+                                <input value="tb_transaksi_detail" type="radio" id="tb_transaksi_detail" name="transaksi" class="custom-control-input">
+                                <label class="custom-control-label" for="tb_transaksi_detail">Penjualan</label>
                             </div>
                             <?= form_error('transaksi', '<span class="text-danger small">', '</span>'); ?>
                         </div>

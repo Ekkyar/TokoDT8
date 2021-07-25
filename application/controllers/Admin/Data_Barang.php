@@ -141,4 +141,55 @@ class Data_Barang extends CI_Controller
         $query = $this->Toko_Model->cekStok($id);
         output_json($query);
     }
+
+    public function harga()
+    {
+        //ambil data session login
+        $data['akses'] = $this->akses;
+        $data['user'] = $this->user;
+
+        //model get Barang
+        $data['barang'] = $this->Toko_Model->getBarang();
+
+        $data['title'] = 'Data Harga';
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/admin_sidebar', $data);
+        $this->load->view('templates/admin_topbar', $data);
+        $this->load->view('admin/v_data_harga', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function edit_harga($getId)
+    {
+        $id = encode_php_tags($getId);
+
+        $this->form_validation->set_rules('harga', 'Harga Barang', 'required|numeric', [
+            'numeric' => 'Harga yang anda masukkan tidak valid!'
+        ]);
+        if ($this->form_validation->run() == false) {
+            //ambil data session login
+            $data['akses'] = $this->akses;
+            $data['user'] = $this->user;
+
+            //model
+            $data['barang'] = $this->Toko_Model->getBarangId($id);
+
+            $data['title'] = "Data Harga";
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/admin_sidebar', $data);
+            $this->load->view('templates/admin_topbar', $data);
+            $this->load->view('admin/v_data_harga_edit', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $input = $this->input->post(null, true);
+            if ($input['harga'] >= $input['harga_masuk']) {
+                $this->Toko_Model->updateBarang($id, $input);
+                set_pesan('Harga berhasil di-update.');
+                redirect('Admin/Data_Barang/harga');
+            } else {
+                set_pesan('Harga yang anda masukkan kurang dari harga masuk!', false);
+                redirect('Admin/Data_Barang/edit_harga/' . $id);
+            }
+        }
+    }
 }

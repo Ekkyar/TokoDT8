@@ -6,14 +6,21 @@
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                         <h6 class="my-0">Petugas</h6>
-                        <small class="text-muted"><?= $barangmasuk->nama; ?></small>
+                        <small class="text-muted"><?= $transaksi->nama; ?></small>
                     </div>
                     <span class="text-muted"></span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
-                        <h6 class="my-0">Supplier</h6>
-                        <small class="text-muted"><?= $barangmasuk->nama_supplier; ?></small>
+                        <h6 class="my-0">Uang Bayar</h6>
+                        <small class="text-muted"><?= format_uang($transaksi->bayar); ?></small>
+                    </div>
+                    <span class="text-muted"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">Kembalian</h6>
+                        <small class="text-muted"><?= format_uang($transaksi->kembalian); ?></small>
                     </div>
                     <span class="text-muted"></span>
                 </li>
@@ -25,17 +32,17 @@
                     <div class="row">
                         <div class="col-sm">
                             <h5 class="font-weight-light mb-0">Detail Transaksi</h5>
-                            <span class="text-muted small"><?= $barangmasuk->id_barang_masuk ?> &bullet; <?= date($barangmasuk->tanggal, true) ?></span>
+                            <span class="text-muted small"><?= $transaksi->id_transaksi ?> &bullet; <?= date($transaksi->tanggal, true) ?></span>
                         </div>
                         <div class="col-sm text-right">
-                            <a href="<?= base_url('Admin/Penjualan/cetak_detail/') . $id_barang_masuk ?>" class="btn btn-primary"><i class="fa fa-print"></i> Print</a>
+                            <a href="<?= base_url('Kasir/Penjualan/cetak_detail/') . $id_transaksi ?>" class="btn btn-primary"><i class="fa fa-print"></i> Print</a>
                         </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-hover mt-3 mb-0">
                             <thead>
                                 <tr class="text-center">
-                                    <th>No</th>
+                                    <th>#</th>
                                     <th>Nama Barang</th>
                                     <th>Harga Satuan</th>
                                     <th>Jumlah Beli</th>
@@ -49,7 +56,7 @@
                                     <tr>
                                         <td align="center"><?= $no++; ?>.</td>
                                         <td><?= $row->nama_barang; ?></td>
-                                        <td><?= format_uang($row->harga_masuk) ?></td>
+                                        <td><?= format_uang($row->harga) ?></td>
                                         <td align="center"><?= $row->qty; ?></td>
                                         <td align="right"><?= format_uang($row->subtotal) ?></td>
                                     </tr>
@@ -58,7 +65,7 @@
                             <tfoot>
                                 <tr>
                                     <th colspan="4" class="text-right">Total Harga</th>
-                                    <th class="text-right"><?= format_uang($barangmasuk->total) ?></th>
+                                    <th class="text-right"><?= format_uang($transaksi->total) ?></th>
                                 </tr>
                             </tfoot>
                         </table>

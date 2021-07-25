@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('Admin/Dashboard') ?>">
@@ -69,6 +69,8 @@
                     <li class="nav-item active">
                     <?php elseif ($title == 'Data Barang') : ?>
                     <li class="nav-item active">
+                    <?php elseif ($title == 'Data Harga') : ?>
+                    <li class="nav-item active">
                     <?php else : ?>
                     <li class="nav-item">
                     <?php endif; ?>
@@ -82,6 +84,7 @@
                             <a class="collapse-item" href="<?= base_url('Admin/Data_Jenis'); ?>">Jenis Barang</a>
                             <a class="collapse-item" href="<?= base_url('Admin/Data_Satuan'); ?>">Satuan Barang</a>
                             <a class="collapse-item" href="<?= base_url('Admin/Data_Barang'); ?>">Data Barang</a>
+                            <a class="collapse-item" href="<?= base_url('Admin/Data_Barang/harga'); ?>">Data Harga</a>
                         </div>
                     </div>
                     </li>

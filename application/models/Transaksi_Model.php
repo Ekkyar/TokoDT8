@@ -8,7 +8,8 @@ class Transaksi_Model extends CI_Model
     public function getTransaksi($id = null)
     {
         if ($id == null) {
-            return $this->db->get('tb_transaksi')->result();
+            $this->db->join('tb_user u', 'u.id_user=t.user_id');
+            return $this->db->get('tb_transaksi t')->result();
         } else {
             $this->db->join('tb_user u', 'u.id_user=t.user_id');
             return $this->db->get_where('tb_transaksi t', ['id_transaksi' => $id])->row();
@@ -60,19 +61,6 @@ class Transaksi_Model extends CI_Model
         $this->db->where('transaksi_id', $id);
         return $this->db->get('tb_transaksi_detail td')->result();
     }
-
-    // public function getTotalTransaksi($bln = null, $custom = [])
-    // {
-    //     if ($bln != null) {
-    //         $this->db->like('tanggal', $bln, 'after');
-    //     }
-    //     if ($custom != null) {
-    //         $this->db->where('tanggal' . ' >=', $custom[0]);
-    //         $this->db->where('tanggal' . ' <=', $custom[1]);
-    //     }
-    //     $this->db->select_sum('total', 'totalTransaksi');
-    //     return $this->db->get('tb_transaksi')->row()->totalTransaksi;
-    // }
 
     //-------------------------------------- Barang Masuk------------------------------------
     // ambil data transaksi/penjualan 
@@ -146,4 +134,50 @@ class Transaksi_Model extends CI_Model
     //     $this->db->select_sum('total', 'totalTransaksi');
     //     return $this->db->get('tb_transaksi')->row()->totalTransaksi;
     // }
+
+
+    //-------------------------------------- Chart ------------------------------------
+    public function getTotalTransaksi($bln = null, $custom = [])
+    {
+        if ($bln != null) {
+            $this->db->like('tanggal', $bln, 'after');
+        }
+        if ($custom != null) {
+            $this->db->where('tanggal' . ' >=', $custom[0]);
+            $this->db->where('tanggal' . ' <=', $custom[1]);
+        }
+        $this->db->select_sum('total', 'totalTransaksi');
+        return $this->db->get('tb_transaksi')->row()->totalTransaksi;
+    }
+
+    public function chartTransaksi($date = null)
+    {
+        if ($date != null) {
+            $this->db->like('tanggal', $date, 'after');
+        }
+        $this->db->select_sum('total', 'totalTransaksi');
+        return $this->db->get('tb_transaksi')->row()->totalTransaksi;
+    }
+
+    public function getPengeluaran($bln = null, $custom = [])
+    {
+        if ($bln != null) {
+            $this->db->like('tanggal', $bln, 'after');
+        }
+        if ($custom != null) {
+            $this->db->where('tanggal' . ' >=', $custom[0]);
+            $this->db->where('tanggal' . ' <=', $custom[1]);
+        }
+        $this->db->select_sum('total', 'totalPengeluaran');
+        return $this->db->get('tb_barang_masuk')->row()->totalPengeluaran;
+    }
+
+    public function chartPengeluaran($date = null)
+    {
+        if ($date != null) {
+            $this->db->like('tanggal', $date, 'after');
+        }
+        $this->db->select_sum('total', 'totalPengeluaran');
+        return $this->db->get('tb_barang_masuk')->row()->totalPengeluaran;
+    }
 }

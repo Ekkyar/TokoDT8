@@ -20,6 +20,7 @@ class Dashboard extends CI_Controller
         $this->user = $this->db->get_where('tb_user', ['username' => $this->session->userdata('username')])->row_array();
         //load model
         $this->load->model('Toko_Model');
+        $this->load->model('Transaksi_Model', 'transaksi');
         //form validation
         $this->load->library('form_validation');
     }
@@ -42,6 +43,10 @@ class Dashboard extends CI_Controller
             'barang_masuk' => $this->Toko_Model->getBarangMasuk(5),
             'barang_keluar' => $this->Toko_Model->getTransaksi(5)
         ];
+        $data['total_transaksi'] = $this->transaksi->getTotalTransaksi(date('Y-m'));
+        $data['total_pengeluaran'] = $this->transaksi->getPengeluaran(date('Y-m'));
+        $data['laba'] = $data['total_transaksi'] - $data['total_pengeluaran'];
+
 
         // Line Chart
         $bln = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
@@ -51,6 +56,19 @@ class Dashboard extends CI_Controller
         foreach ($bln as $b) {
             $data['cbm'][] = $this->Toko_Model->chartBarangMasuk($b);
             $data['cbk'][] = $this->Toko_Model->chartBarangKeluar($b);
+        }
+
+        // Line Chart 
+        $bln = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+        $data['pd'] = [];
+        foreach ($bln as $b) {
+            $date = date('Y-') . $b;
+            $total1 = (int) $this->transaksi->chartTransaksi($date);
+            $total2 = (int) $this->transaksi->chartPengeluaran($date);
+            $laba = $total1 - $total2;
+            $data['pd'][] = $total1 == null ? 0 : $total1;
+            $data['pg'][] = $total2 == null ? 0 : $total2;
+            $data['lb'][] = $laba == null ? 0 : $laba;
         }
 
         $data['title'] = 'Dashboard';

@@ -33,7 +33,7 @@
                                 <select name="barang_id" id="barang_id" class="custom-select">
                                     <option value="" selected disabled>Pilih Barang</option>
                                     <?php foreach ($barang as $b) : ?>
-                                        <option <?= $this->uri->segment(3) == $b['id_barang'] ? 'selected' : '';  ?> <?= set_select('barang_id', $b['id_barang']) ?> value="<?= $b['id_barang'] ?>">
+                                        <option <?= $this->uri->segment(4) == $b['id_barang'] ? 'selected' : '';  ?> <?= set_select('barang_id', $b['id_barang']) ?> value="<?= $b['id_barang'] ?>">
                                             <?php foreach ($barangdetail as $bd) : ?>
                                                 <?php if ($b['id_barang'] == $bd['id_barang']) : ?>
                                                     <?= $b['id_barang'] . ' | ' . $b['nama_barang'] . ' | ' . $bd['nama_satuan'] ?>

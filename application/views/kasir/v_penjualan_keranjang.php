@@ -3,7 +3,7 @@
     <?= $this->session->flashdata('pesan'); ?>
     <div class="row">
         <div class="col text-right">
-            <a href="<?= base_url('Admin/Penjualan') ?>" class="btn btn-sm btn-secondary btn-icon-split">
+            <a href="<?= base_url('Kasir/Penjualan') ?>" class="btn btn-sm btn-secondary btn-icon-split">
                 <span class="icon">
                     <i class="fa fa-arrow-left"></i>
                 </span>
@@ -23,7 +23,7 @@
                             <span class="text-muted small">Daftar Barang</span>
                         </div>
                         <div class="col-auto mt-3">
-                            <a href="<?= base_url('Admin/Penjualan/add_item') ?>" class="btn btn-primary btn-icon-split">
+                            <a href="<?= base_url('Kasir/Penjualan/add_item') ?>" class="btn btn-primary btn-icon-split">
                                 <span class="icon">
                                     <i class="fa fa-sm fa-plus"></i>
                                 </span>
@@ -31,7 +31,7 @@
                                     Tambah
                                 </span>
                             </a>
-                            <a onclick="return confirm('Data pemesanan akan dihapus. anda yakin ingin batal?')" href="<?= base_url('Admin/Penjualan/batal') ?>" class="btn btn-secondary btn-icon-split">
+                            <a onclick="return confirm('Data pemesanan akan dihapus. anda yakin ingin batal?')" href="<?= base_url('Kasir/Penjualan/batal') ?>" class="btn btn-secondary btn-icon-split">
                                 <span class="icon">
                                     <i class="fa fa-sm fa-eraser"></i>
                                 </span>
@@ -73,7 +73,7 @@
                                             <td><?= format_uang($row->harga) ?></td>
                                             <td><?= format_uang($row->harga * $row->qty) ?></td>
                                             <td>
-                                                <a onclick="return confirm('Apakah anda yakin ingin menghapus item?');" href="<?= base_url('Admin/Penjualan/delete_item/' . $row->id_item) ?>" class="btn btn-circle btn-sm btn-danger">
+                                                <a onclick="return confirm('Apakah anda yakin ingin menghapus item?');" href="<?= base_url('Kasir/Penjualan/delete_item/' . $row->id_item) ?>" class="btn btn-circle btn-sm btn-danger">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                             </td>

@@ -19,8 +19,10 @@
                         <th>ID Barang</th>
                         <th>Nama Barang</th>
                         <th>Jenis Barang</th>
-                        <th>Stok</th>
                         <th>Satuan</th>
+                        <th>Stok</th>
+                        <th>Harga Masuk</th>
+                        <th>Harga Jual</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,8 +36,10 @@
                                 <td><?= $b['id_barang']; ?></td>
                                 <td><?= $b['nama_barang']; ?></td>
                                 <td><?= $b['nama_jenis']; ?></td>
-                                <td><?= $b['stok']; ?></td>
                                 <td><?= $b['nama_satuan']; ?></td>
+                                <td><?= $b['stok']; ?></td>
+                                <td><?= format_uang($b['harga_masuk']); ?></td>
+                                <td><?= format_uang($b['harga']); ?></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else : ?>

@@ -198,6 +198,14 @@ class Toko_Model extends CI_Model
         return $this->db->get('tb_barang')->result_array();
     }
 
+    //get harga masuk by id
+    public function getHargaMasukId($id)
+    {
+        $this->db->select('harga_masuk');
+        $this->db->where('id_barang', $id);
+        return $this->db->get('tb_barang')->result_array();
+    }
+
     //get all
     public function getAllBarang()
     {
@@ -241,8 +249,10 @@ class Toko_Model extends CI_Model
             $this->db->where('tanggal' . ' <=', $range['akhir']);
         }
 
-        $this->db->order_by('id_barang_masuk', 'DESC');
-        return $this->db->get('tb_barang_masuk bm')->result_array();
+        $this->db->join('tb_barang b', 'b.id_barang = bmd.barang_id');
+        $this->db->join('tb_barang_masuk bm', 'bm.id_barang_masuk = bmd.barang_masuk_id');
+        $this->db->order_by('barang_masuk_id', 'DESC');
+        return $this->db->get('tb_barang_masuk_detail bmd')->result_array();
     }
 
     //chart barang masuk 
@@ -257,6 +267,8 @@ class Toko_Model extends CI_Model
     public function getTransaksi($limit = null, $id_barang = null, $range = null)
     {
         $this->db->select('*');
+        $this->db->join('tb_barang b', 'b.id_barang = td.barang_id');
+        $this->db->join('tb_transaksi t', 't.id_transaksi = td.transaksi_id');
         if ($limit != null) {
             $this->db->limit($limit);
         }
@@ -270,8 +282,9 @@ class Toko_Model extends CI_Model
             $this->db->where('tanggal' . ' <=', $range['akhir']);
         }
 
-        $this->db->order_by('id_transaksi', 'DESC');
-        return $this->db->get('tb_transaksi bm')->result_array();
+
+        $this->db->order_by('transaksi_id', 'DESC');
+        return $this->db->get('tb_transaksi_detail td')->result_array();
     }
 
     //chart barang keluar

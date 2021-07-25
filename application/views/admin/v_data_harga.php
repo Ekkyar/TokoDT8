@@ -7,18 +7,8 @@
             <div class="row">
                 <div class="col">
                     <h5 class="align-middle m-0 font-weight-bold text-primary">
-                        Barang
+                        Harga Barang
                     </h5>
-                </div>
-                <div class="col-auto">
-                    <a href="<?= base_url('Admin/Data_Barang/add') ?>" class="btn btn-sm btn-primary btn-icon-split">
-                        <span class="icon">
-                            <i class="fa fa-plus"></i>
-                        </span>
-                        <span class="text">
-                            Tambah Barang
-                        </span>
-                    </a>
                 </div>
             </div>
         </div>
@@ -31,8 +21,9 @@
                         <th>Nama Barang</th>
                         <th>Jenis Barang</th>
                         <th>Satuan</th>
-                        <th>Stok</th>
-                        <th>Aksi</th>
+                        <th>Harga Masuk</th>
+                        <th>Harga Jual</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,10 +38,10 @@
                                 <td><?= $b['nama_barang']; ?></td>
                                 <td><?= $b['nama_jenis']; ?></td>
                                 <td><?= $b['nama_satuan']; ?></td>
-                                <td><?= $b['stok']; ?></td>
+                                <td><?= format_uang($b['harga_masuk']); ?></td>
+                                <td><?= format_uang($b['harga']); ?></td>
                                 <td>
-                                    <a href="<?= base_url('Admin/Data_Barang/edit/') . $b['id_barang'] ?>" class="btn btn-warning btn-circle btn-sm"><i class="fa fa-edit"></i></a>
-                                    <a onclick="return confirm('Yakin ingin hapus?')" href="<?= base_url('Admin/Data_Barang/delete/') . $b['id_barang'] ?>" class="btn btn-danger btn-circle btn-sm"><i class="fa fa-trash"></i></a>
+                                    <a href="<?= base_url('Admin/Data_Barang/edit_harga/') . $b['id_barang'] ?>" class="btn btn-warning btn-circle btn-sm"><i class="fa fa-edit"></i></a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
