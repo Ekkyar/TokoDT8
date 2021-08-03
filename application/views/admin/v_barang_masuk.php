@@ -34,7 +34,7 @@
                         <th>User</th>
                         <th>Supplier</th>
                         <th>Total Harga</th>
-                        <th>Hapus</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>

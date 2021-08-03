@@ -20,7 +20,8 @@ class Data_Barang extends CI_Controller
         $this->user = $this->db->get_where('tb_user', ['username' => $this->session->userdata('username')])->row_array();
         //load model
         $this->load->model('Toko_Model');
-        //form validation
+        //libraries
+        $this->load->library('Ciqrcode');
         $this->load->library('form_validation');
     }
 
@@ -32,7 +33,6 @@ class Data_Barang extends CI_Controller
 
         //model get Barang
         $data['barang'] = $this->Toko_Model->getBarang();
-
         $data['title'] = 'Data Barang';
         $this->load->view('templates/header', $data);
         $this->load->view('templates/admin_sidebar', $data);
@@ -191,5 +191,16 @@ class Data_Barang extends CI_Controller
                 redirect('Admin/Data_Barang/edit_harga/' . $id);
             }
         }
+    }
+
+    public function QRcode($kode)
+    {
+        QRcode::png(
+            $kode,
+            $outfile = false,
+            $level = QR_ECLEVEL_H,
+            $size = 5,
+            $margin = 2
+        );
     }
 }

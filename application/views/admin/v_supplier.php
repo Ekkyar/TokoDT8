@@ -1,5 +1,5 @@
 <!-- Container -->
-<div class="container-fluid">
+<div class="container">
 
     <?= $this->session->flashdata('pesan'); ?>
     <div class="card shadow-sm border-bottom-primary">
@@ -30,7 +30,7 @@
                         <th>Nama</th>
                         <th>Nomor Telepon</th>
                         <th>Alamat</th>
-                        <th>Aksi</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>

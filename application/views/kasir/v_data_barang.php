@@ -1,5 +1,5 @@
 <!-- Container -->
-<div class="container-fluid">
+<div class="container">
 
     <div class="card shadow-sm border-bottom-primary">
         <div class="card-header bg-white py-3">
@@ -33,7 +33,11 @@
                     ?>
                             <tr>
                                 <td><?= $no++; ?></td>
-                                <td><?= $b['id_barang']; ?></td>
+                                <td>
+                                    <img src="<?= site_url('Kasir/Data_Barang/QRcode/' . $b['id_barang']); ?>" class="ml-2" width="50" alt="error">
+                                    <br>
+                                    <?= $b['id_barang']; ?>
+                                </td>
                                 <td><?= $b['nama_barang']; ?></td>
                                 <td><?= $b['nama_jenis']; ?></td>
                                 <td><?= $b['nama_satuan']; ?></td>
@@ -44,7 +48,7 @@
                         <?php endforeach; ?>
                     <?php else : ?>
                         <tr>
-                            <td colspan="7" class="text-center">
+                            <td colspan=" 7" class="text-center">
                                 Data Kosong
                             </td>
                         </tr>

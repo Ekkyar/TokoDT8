@@ -32,7 +32,7 @@
                         <th>ID Transaksi</th>
                         <th>Tanggal</th>
                         <th>Total Harga</th>
-                        <th>Hapus</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>

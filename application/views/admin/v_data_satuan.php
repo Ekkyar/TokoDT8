@@ -1,5 +1,5 @@
 <!-- Container -->
-<div class="container-fluid">
+<div class="container">
 
     <?= $this->session->flashdata('pesan'); ?>
     <div class="card shadow-sm border-bottom-primary">
@@ -23,12 +23,12 @@
             </div>
         </div>
         <div class="table-responsive">
-            <table class="table table-striped" id="dataTable">
+            <table class="table table-striped w-100 dt-responsive nowrap" id="dataTable">
                 <thead>
                     <tr>
                         <th>No. </th>
                         <th>Nama Satuan</th>
-                        <th>Aksi</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>

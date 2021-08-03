@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="table-responsive">
-            <table class="table table-striped dt-responsive nowrap" id="dataTable">
+            <table class="table table-striped w-100 dt-responsive nowrap" id="dataTable">
                 <thead>
                     <tr>
                         <th width="30">No.</th>
@@ -32,7 +32,7 @@
                         <th>Email</th>
                         <th>No. telp</th>
                         <th>Role</th>
-                        <th>Aksi</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,7 +44,7 @@
                             <tr>
                                 <td><?= $no++; ?></td>
                                 <td>
-                                    <img width="30" src="<?= base_url() ?>assets/img/profil/<?= $usr['foto'] ?>" alt="<?= $usr['nama']; ?>" class="img-thumbnail rounded-circle">
+                                    <img src="<?= base_url() ?>assets/img/profil/<?= $usr['foto'] ?>" alt="<?= $usr['nama']; ?>" width="30" class="img-thumbnail rounded-circle">
                                 </td>
                                 <td><?= $usr['nama']; ?></td>
                                 <td><?= $usr['username']; ?></td>

@@ -1,5 +1,5 @@
 <!-- Container -->
-<div class="container-fluid">
+<div class="container">
 
     <?= $this->session->flashdata('pesan'); ?>
     <div class="card shadow-sm border-bottom-primary">
@@ -28,11 +28,12 @@
                     <tr>
                         <th>No. </th>
                         <th>ID Barang</th>
+                        <th>Qr Code</th>
                         <th>Nama Barang</th>
                         <th>Jenis Barang</th>
                         <th>Satuan</th>
                         <th>Stok</th>
-                        <th>Aksi</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,6 +45,11 @@
                             <tr>
                                 <td><?= $no++; ?></td>
                                 <td><?= $b['id_barang']; ?></td>
+                                <td>
+                                    <img src="<?= site_url('Admin/Data_Barang/QRcode/' . $b['id_barang']); ?>" width="50" alt="error">
+                                    <br>
+                                    <a href="<?= base_url('Admin/Data_Barang/cetak_qrcode/') . $b['id_barang'] ?>" class="h5 badge ml-1">Cetak</a>
+                                </td>
                                 <td><?= $b['nama_barang']; ?></td>
                                 <td><?= $b['nama_jenis']; ?></td>
                                 <td><?= $b['nama_satuan']; ?></td>

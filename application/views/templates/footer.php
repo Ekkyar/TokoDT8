@@ -82,7 +82,7 @@
 </script>
 <!-- End Keranjang -->
 
-<!-- Script Cetak Laporan -->
+<!-- Script datatabel -->
 <script type="text/javascript">
     $(function() {
         $('.date').datepicker({
@@ -135,7 +135,7 @@
         table.buttons().container().appendTo('#dataTable_wrapper .col-md-5:eq(0)');
     });
 </script>
-<!-- End Script Cetak Laporan -->
+<!-- End Script Datatable -->
 
 <!-- Script -->
 <script type="text/javascript">

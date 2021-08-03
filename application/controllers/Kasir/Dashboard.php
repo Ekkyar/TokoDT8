@@ -51,7 +51,6 @@ class Dashboard extends CI_Controller
         $data['cbk'] = [];
 
         foreach ($bln as $b) {
-            $data['cbm'][] = $this->Toko_Model->chartBarangMasuk($b);
             $data['cbk'][] = $this->Toko_Model->chartBarangKeluar($b);
         }
 

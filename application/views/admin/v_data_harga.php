@@ -1,5 +1,5 @@
 <!-- Container -->
-<div class="container-fluid">
+<div class="container">
 
     <?= $this->session->flashdata('pesan'); ?>
     <div class="card shadow-sm border-bottom-primary">
