@@ -82,6 +82,38 @@
 </script>
 <!-- End Keranjang -->
 
+<!-- Script -->
+<script type="text/javascript">
+    let hal = '<?= $this->uri->segment(2); ?>';
+
+    let satuan = $('#satuan');
+    let stok = $('#stok');
+    let total = $('#total_stok');
+    let jumlah = hal == 'Barang_Masuk' ? $('#jumlah_masuk') : $('#jumlah_keluar');
+
+    $(document).on('change', '#barang_id', function() {
+        let url = '<?= base_url('Admin/Data_Barang/getstok/'); ?>' + this.value;
+        $.getJSON(url, function(data) {
+            satuan.html(data.nama_satuan);
+            stok.val(data.stok);
+            total.val(data.stok);
+            jumlah.focus();
+        });
+    });
+
+    $(document).on('keyup', '#jumlah_masuk', function() {
+        let totalStok = parseInt(stok.val()) + parseInt(this.value);
+        total.val(Number(totalStok));
+    });
+
+    $(document).on('keyup', '#jumlah_keluar', function() {
+        let totalStok = parseInt(stok.val()) - parseInt(this.value);
+        total.val(Number(totalStok));
+    });
+</script>
+<!-- End Script -->
+
+
 <!-- Script datatabel -->
 <script type="text/javascript">
     $(function() {
@@ -136,37 +168,6 @@
     });
 </script>
 <!-- End Script Datatable -->
-
-<!-- Script -->
-<script type="text/javascript">
-    let hal = '<?= $this->uri->segment(2); ?>';
-
-    let satuan = $('#satuan');
-    let stok = $('#stok');
-    let total = $('#total_stok');
-    let jumlah = hal == 'Barang_Masuk' ? $('#jumlah_masuk') : $('#jumlah_keluar');
-
-    $(document).on('change', '#barang_id', function() {
-        let url = '<?= base_url('Admin/Data_Barang/getstok/'); ?>' + this.value;
-        $.getJSON(url, function(data) {
-            satuan.html(data.nama_satuan);
-            stok.val(data.stok);
-            total.val(data.stok);
-            jumlah.focus();
-        });
-    });
-
-    $(document).on('keyup', '#jumlah_masuk', function() {
-        let totalStok = parseInt(stok.val()) + parseInt(this.value);
-        total.val(Number(totalStok));
-    });
-
-    $(document).on('keyup', '#jumlah_keluar', function() {
-        let totalStok = parseInt(stok.val()) - parseInt(this.value);
-        total.val(Number(totalStok));
-    });
-</script>
-<!-- End Script -->
 
 <!-- Script Chart -->
 <?php if ($this->uri->segment(2) == 'Dashboard') : ?>

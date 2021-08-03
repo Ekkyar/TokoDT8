@@ -148,6 +148,7 @@ class Barang_Masuk extends CI_Controller
         //models
         $data['supplier'] = $this->Toko_Model->getAllSupplier();
         $data['barang'] = $this->Toko_Model->getAllBarang();
+        // $data['getbarang'] = $this->Toko_Model->getBarang();
         $data['barangdetail'] = $this->Toko_Model->getBarang();
 
         $this->form_validation->set_rules('barang_id', 'ID Barang', 'required|trim');

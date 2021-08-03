@@ -28,7 +28,7 @@
                     <?= $this->session->flashdata('pesan'); ?>
                     <?= form_open(); ?>
                     <div class="form-group">
-                        <label for="barang_id">Kode Barang</label>
+                        <label for="barang_id">ID Barang</label>
                         <div class="input-group">
                             <input value="<?= set_value('barang_id') ?>" type="text" class="form-control" name="barang_id" id="barang_id" placeholder="ID Barang...">
                             <div class="input-group-append">
@@ -59,7 +59,7 @@
 
     <!-- Modal Cari Barang -->
     <div id="modalBarang" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Data Barang</h5>
@@ -73,6 +73,7 @@
                             <table class="table table-striped" id="dataTable">
                                 <thead>
                                     <tr>
+                                        <th>ID Barang</th>
                                         <th>Nama Barang</th>
                                         <th>Jenis Barang</th>
                                         <th>Satuan Barang</th>
@@ -84,6 +85,7 @@
                                 <tbody>
                                     <?php foreach ($barang as $row) : ?>
                                         <tr>
+                                            <td><?= $row['id_barang'] ?></td>
                                             <td><?= $row['nama_barang'] ?></td>
                                             <td><?= $row['nama_jenis'] ?></td>
                                             <td><?= $row['nama_satuan'] ?></td>

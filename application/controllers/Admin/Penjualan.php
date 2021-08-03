@@ -209,4 +209,18 @@ class Penjualan extends CI_Controller
         $this->load->view('admin/v_penjualan_detail', $data);
         $this->load->view('templates/footer', $data);
     }
+
+    public function cetak_nota($id)
+    {
+        //ambil data session login
+        $data['akses'] = $this->akses;
+        $data['user'] = $this->user;
+
+        $data['id_transaksi'] = $id;
+        $data['transaksi'] = $this->transaksi->getTransaksi($id);
+        $data['detail'] = $this->transaksi->getDetailTransaksi($id);
+
+        $data['title'] = "Penjualan";
+        $this->load->view('admin/v_cetak_nota', $data);
+    }
 }
