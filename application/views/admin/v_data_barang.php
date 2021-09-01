@@ -48,7 +48,7 @@
                                 <td>
                                     <img src="<?= site_url('Admin/Data_Barang/QRcode/' . $b['id_barang']); ?>" width="50" alt="error">
                                     <br>
-                                    <a href="<?= base_url('Admin/Data_Barang/QRcode/') . $b['id_barang'] ?>" class="h5 badge ml-1">Cetak</a>
+                                    <a href="<?= base_url('Admin/Data_Barang/QRcode/') . $b['id_barang'] ?>" class="h5 badge ml-1" target="_blank">Cetak</a>
                                 </td>
                                 <td><?= $b['nama_barang']; ?></td>
                                 <td><?= $b['nama_jenis']; ?></td>

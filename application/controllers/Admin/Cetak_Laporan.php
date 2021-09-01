@@ -75,38 +75,46 @@ class Cetak_Laporan extends CI_Controller
 
         if ($table_ == 'tb_transaksi_detail') :
             $pdf->Cell(10, 7, 'No.', 1, 0, 'C');
-            $pdf->Cell(25, 7, 'Tgl Masuk', 1, 0, 'C');
+            $pdf->Cell(22, 7, 'Tanggal', 1, 0, 'C');
             $pdf->Cell(35, 7, 'ID Transaksi', 1, 0, 'C');
             $pdf->Cell(55, 7, 'Nama Barang', 1, 0, 'C');
-            $pdf->Cell(30, 7, 'Jumlah Masuk', 1, 0, 'C');
+            $pdf->Cell(15, 7, 'Qty', 1, 0, 'C');
+            $pdf->Cell(30, 7, 'Harga', 1, 0, 'C');
+            $pdf->Cell(30, 7, 'Total', 1, 0, 'C');
             $pdf->Ln();
 
             $no = 1;
             foreach ($data as $d) {
                 $pdf->SetFont('Arial', '', 10);
                 $pdf->Cell(10, 7, $no++ . '.', 1, 0, 'C');
-                $pdf->Cell(25, 7, $d['tanggal'], 1, 0, 'C');
-                $pdf->Cell(35, 7, $d['transaksi_id'], 1, 0, 'C');
-                $pdf->Cell(55, 7, $d['nama_barang'], 1, 0, 'L');
-                $pdf->Cell(30, 7, $d['qty'], 1, 0, 'C');
+                $pdf->Cell(22, 7, $d['tanggal'], 1, 0, 'C');
+                $pdf->Cell(35, 7, $d['id_transaksi'], 1, 0, 'C');
+                $pdf->Cell(55, 7, $d['nama_barang'], 1, 0, 'C');
+                $pdf->Cell(15, 7, $d['qty'], 1, 0, 'C');
+                $pdf->Cell(30, 7, format_uang($d['harga']), 1, 0, 'R');
+                $pdf->Cell(30, 7, format_uang($d['subtotal']), 1, 0, 'R');
                 $pdf->Ln();
             }
         else :
             $pdf->Cell(10, 7, 'No.', 1, 0, 'C');
-            $pdf->Cell(25, 7, 'Tgl Keluar', 1, 0, 'C');
+            $pdf->Cell(22, 7, 'Tanggal', 1, 0, 'C');
             $pdf->Cell(35, 7, 'ID Transaksi', 1, 0, 'C');
-            $pdf->Cell(95, 7, 'Nama Barang', 1, 0, 'C');
-            $pdf->Cell(30, 7, 'Jumlah Terjual', 1, 0, 'C');
+            $pdf->Cell(55, 7, 'Nama Barang', 1, 0, 'C');
+            $pdf->Cell(15, 7, 'Qty', 1, 0, 'C');
+            $pdf->Cell(30, 7, 'Harga Masuk', 1, 0, 'C');
+            $pdf->Cell(30, 7, 'Total', 1, 0, 'C');
             $pdf->Ln();
 
             $no = 1;
             foreach ($data as $d) {
                 $pdf->SetFont('Arial', '', 10);
                 $pdf->Cell(10, 7, $no++ . '.', 1, 0, 'C');
-                $pdf->Cell(25, 7, $d['tanggal'], 1, 0, 'C');
+                $pdf->Cell(22, 7, $d['tanggal'], 1, 0, 'C');
                 $pdf->Cell(35, 7, $d['barang_masuk_id'], 1, 0, 'C');
-                $pdf->Cell(95, 7, $d['nama_barang'], 1, 0, 'L');
-                $pdf->Cell(30, 7, $d['qty'], 1, 0, 'C');
+                $pdf->Cell(55, 7, $d['nama_barang'], 1, 0, 'C');
+                $pdf->Cell(15, 7, $d['qty'], 1, 0, 'C');
+                $pdf->Cell(30, 7, format_uang($d['harga_masuk']), 1, 0, 'R');
+                $pdf->Cell(30, 7, format_uang($d['subtotal']), 1, 0, 'R');
                 $pdf->Ln();
             }
         endif;

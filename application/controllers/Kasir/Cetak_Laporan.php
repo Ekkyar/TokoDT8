@@ -61,7 +61,7 @@ class Cetak_Laporan extends CI_Controller
     private function _cetak($data, $table_, $tanggal)
     {
         $this->load->library('CustomPDF');
-        $table = $table_ == 'tb_barang_masuk' ? 'Barang Masuk' : 'Transaksi Penjualan';
+        $table = $table_ == 'tb_barang_masuk' ? 'Barang Masuk' : 'Penjualan';
 
         $pdf = new FPDF();
         $pdf->AddPage('P', 'Letter');

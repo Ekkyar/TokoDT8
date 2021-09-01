@@ -60,24 +60,25 @@ class Barang_Masuk extends CI_Controller
     public function keranjang()
     {
         //generate Kode transaksi / ID transaksi
-        $id_barang_masuk = generate_id("BM", "tb_barang_masuk", "id_barang_masuk", date('ymd'), 3);
+        $id_barang_masuk = generate_id("B", "tb_barang_masuk", "id_barang_masuk", date('ymd'), 3);
 
         //ambil id user sesseion
         $id_user = $this->user['id_user'];
 
         //model
-        // $data['keranjang'] = $this->transaksi->getKeranjang(['user_id' => $id_user]);
         $data['keranjang'] = $this->transaksi->getKeranjangMasuk(['user_id' => $id_user]);
         $data['supplier'] = $this->Toko_Model->get('tb_supplier');
         $data['total_harga'] = $this->transaksi->getTotalKeranjangMasuk(['user_id' => $id_user]);
 
+        //Validasi
         $this->form_validation->set_rules('supplier_id', 'Supplier', 'required');
-        if ($this->form_validation->run() == false) {
-            //ambil data session login
-            $data['akses'] = $this->akses;
-            $data['user'] = $this->user;
 
-            $data['title'] = 'Barang Masuk';
+        //ambil data session login
+        $data['akses'] = $this->akses;
+        $data['user'] = $this->user;
+
+        $data['title'] = 'Barang Masuk';
+        if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/admin_sidebar', $data);
             $this->load->view('templates/admin_topbar', $data);
@@ -143,7 +144,11 @@ class Barang_Masuk extends CI_Controller
     // ------------------------------ Controller Add Items ---------------------------------
     public function add_item()
     {
-        $id_user = $this->user['id_user']; //get user session id
+
+        //validasi
+        $this->form_validation->set_rules('barang_id', 'ID Barang', 'required|trim');
+        $this->form_validation->set_rules('qty', 'Jumlah Masuk', 'required|numeric');
+        $this->form_validation->set_rules('harga_masuk', 'Harga Masuk', 'required|numeric');
 
         //models
         $data['supplier'] = $this->Toko_Model->getAllSupplier();
@@ -151,15 +156,13 @@ class Barang_Masuk extends CI_Controller
         // $data['getbarang'] = $this->Toko_Model->getBarang();
         $data['barangdetail'] = $this->Toko_Model->getBarang();
 
-        $this->form_validation->set_rules('barang_id', 'ID Barang', 'required|trim');
-        $this->form_validation->set_rules('qty', 'Jumlah Masuk', 'required|numeric');
-        $this->form_validation->set_rules('harga_masuk', 'Harga Masuk', 'required|numeric');
-        if ($this->form_validation->run() == false) {
-            //ambil data session login
-            $data['akses'] = $this->akses;
-            $data['user'] = $this->user;
+        //ambil data session login
+        $data['akses'] = $this->akses;
+        $data['user'] = $this->user;
+        $id_user = $this->user['id_user']; //get user session id
 
-            $data['title'] = 'Barang Masuk';
+        $data['title'] = 'Barang Masuk';
+        if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/admin_sidebar', $data);
             $this->load->view('templates/admin_topbar', $data);

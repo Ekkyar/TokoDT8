@@ -53,12 +53,13 @@ class Supplier extends CI_Controller
     public function add()
     {
         $this->_validasi();
-        if ($this->form_validation->run() == false) {
-            //ambil data session login
-            $data['akses'] = $this->akses;
-            $data['user'] = $this->user;
 
-            $data['title'] = 'Data Supplier';
+        //ambil data session login
+        $data['akses'] = $this->akses;
+        $data['user'] = $this->user;
+
+        $data['title'] = 'Data Supplier';
+        if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/admin_sidebar', $data);
             $this->load->view('templates/admin_topbar', $data);
@@ -82,15 +83,15 @@ class Supplier extends CI_Controller
         $id = encode_php_tags($getId);
         $this->_validasi();
 
+        //ambil data session login
+        $data['akses'] = $this->akses;
+        $data['user'] = $this->user;
+
+        //model get supplier
+        $data['supplier'] = $this->Toko_Model->getSupplier($id);
+
+        $data['title'] = "Data Supplier";
         if ($this->form_validation->run() == false) {
-            //ambil data session login
-            $data['akses'] = $this->akses;
-            $data['user'] = $this->user;
-
-            //model get supplier
-            $data['supplier'] = $this->Toko_Model->getSupplier($id);
-
-            $data['title'] = "Data Supplier";
             $this->load->view('templates/header', $data);
             $this->load->view('templates/admin_sidebar', $data);
             $this->load->view('templates/admin_topbar', $data);
@@ -102,10 +103,10 @@ class Supplier extends CI_Controller
             if ($update) {
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Supplier berhasil diedit.</div>');
                 set_pesan('Supplier berhasil di-update.');
-                redirect('Admin/Admin_Supplier/index');
+                redirect('Admin/Supplier');
             } else {
                 set_pesan('Supplier gagal di-update!', false);
-                redirect('Admin/Admin_Supplier/edit/' . $id);
+                redirect('Admin/Supplier/edit/' . $id);
             }
         }
     }

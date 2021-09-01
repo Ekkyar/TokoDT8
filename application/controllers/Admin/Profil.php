@@ -71,12 +71,12 @@ class Profil extends CI_Controller
         $this->_validasi();
         $this->_config();
 
-        if ($this->form_validation->run() == false) {
-            //ambil data session login
-            $data['akses'] = $this->akses;
-            $data['user'] = $this->user;
+        //ambil data session login
+        $data['akses'] = $this->akses;
+        $data['user'] = $this->user;
 
-            $data['title'] = 'Profil';
+        $data['title'] = 'Profil';
+        if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/admin_sidebar', $data);
             $this->load->view('templates/admin_topbar', $data);
@@ -117,14 +117,13 @@ class Profil extends CI_Controller
         $this->form_validation->set_rules('password_lama', 'Password Lama', 'required|trim');
         $this->form_validation->set_rules('password_baru', 'Password Baru', 'required|trim|min_length[6]|differs[password_lama]');
         $this->form_validation->set_rules('konfirmasi_password', 'Konfirmasi Password', 'matches[password_baru]');
-        $this->form_validation->set_rules('id_akses', 'id_akses', 'required', ['required' => 'User Akses is required.']);
 
+        //ambil data session login
+        $data['akses'] = $this->akses;
+        $data['user'] = $this->user;
+
+        $data['title'] = 'Profil';
         if ($this->form_validation->run() == false) {
-            //ambil data session login
-            $data['akses'] = $this->akses;
-            $data['user'] = $this->user;
-
-            $data['title'] = 'Profil';
             $this->load->view('templates/header', $data);
             $this->load->view('templates/admin_sidebar', $data);
             $this->load->view('templates/admin_topbar', $data);

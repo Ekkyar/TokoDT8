@@ -94,15 +94,16 @@ class Data_User extends CI_Controller
     public function add()
     {
         $this->_validasiAdd();
+
+        //ambil data session login
+        $data['akses'] = $this->akses;
+        $data['user'] = $this->user;
+
+        //ambil data akses
+        $data['getAkses'] = $this->Toko_Model->getAllAkses();
+
+        $data['title'] = 'Data User';
         if ($this->form_validation->run() == false) {
-            //ambil data session login
-            $data['akses'] = $this->akses;
-            $data['user'] = $this->user;
-
-            //ambil data akses
-            $data['getAkses'] = $this->Toko_Model->getAllAkses();
-
-            $data['title'] = 'Data User';
             $this->load->view('templates/header', $data);
             $this->load->view('templates/admin_sidebar', $data);
             $this->load->view('templates/admin_topbar', $data);
@@ -132,16 +133,17 @@ class Data_User extends CI_Controller
     {
         $id = encode_php_tags($getId);
         $this->_validasiEdit();
+
+        //ambil data session login
+        $data['akses'] = $this->akses;
+        $data['user'] = $this->user;
+
+        //model
+        $data['usr'] = $this->Toko_Model->getUser($id);
+        $data['aks'] = $this->Toko_Model->getAllAkses();
+
+        $data['title'] = 'Data User';
         if ($this->form_validation->run() == FALSE) {
-            //ambil data session login
-            $data['akses'] = $this->akses;
-            $data['user'] = $this->user;
-
-            //model
-            $data['usr'] = $this->Toko_Model->getUser($id);
-            $data['aks'] = $this->Toko_Model->getAllAkses();
-
-            $data['title'] = 'Data User';
             $this->load->view('templates/header', $data);
             $this->load->view('templates/admin_sidebar', $data);
             $this->load->view('templates/admin_topbar', $data);

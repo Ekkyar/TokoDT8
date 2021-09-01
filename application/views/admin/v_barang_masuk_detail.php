@@ -27,9 +27,9 @@
                             <h5 class="font-weight-light mb-0">Detail Transaksi</h5>
                             <span class="text-muted small"><?= $barangmasuk->id_barang_masuk ?> &bullet; <?= date($barangmasuk->tanggal, true) ?></span>
                         </div>
-                        <div class="col-sm text-right">
-                            <a href="<?= base_url('Admin/Penjualan/cetak_detail/') . $id_barang_masuk ?>" class="btn btn-primary"><i class="fa fa-print"></i> Print</a>
-                        </div>
+                        <!-- <div class="col-sm text-right">
+                            <a href="<= base_url('Admin/Penjualan/cetak_detail/') . $id_barang_masuk ?>" class="btn btn-primary"><i class="fa fa-print"></i> Print</a>
+                        </div> -->
                     </div>
                     <div class="table-responsive">
                         <table class="table table-hover mt-3 mb-0">

@@ -69,13 +69,15 @@ class Penjualan extends CI_Controller
         $data['keranjang'] = $this->transaksi->getKeranjang(['user_id' => $id_user]);
         $data['total_harga'] = $this->transaksi->getTotalKeranjang(['user_id' => $id_user]);
 
+        //Validasi
         $this->form_validation->set_rules('bayar', 'Bayar', 'required|numeric');
-        if ($this->form_validation->run() == false) {
-            //ambil data session login
-            $data['akses'] = $this->akses;
-            $data['user'] = $this->user;
 
-            $data['title'] = 'Penjualan';
+        //ambil data session login
+        $data['akses'] = $this->akses;
+        $data['user'] = $this->user;
+
+        $data['title'] = 'Penjualan';
+        if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/admin_sidebar', $data);
             $this->load->view('templates/admin_topbar', $data);
@@ -148,19 +150,19 @@ class Penjualan extends CI_Controller
 
     public function add_item()
     {
-        //tittle
-        $data['title'] = 'Penjualan';
+        //validasi
+        $this->form_validation->set_rules('barang_id', 'ID Barang', 'required|trim');
+        $this->form_validation->set_rules('qty', 'Jumlah Beli', 'required|numeric');
+
+        //models
+        $data['barang'] = $this->Toko_Model->getBarang();
 
         //ambil data session login
         $data['akses'] = $this->akses;
         $data['user'] = $this->user;
         $id_user = $this->user['id_user']; //get user session id
 
-        //models
-        $data['barang'] = $this->Toko_Model->getBarang();
-
-        $this->form_validation->set_rules('barang_id', 'ID Barang', 'required|trim');
-        $this->form_validation->set_rules('qty', 'Jumlah Beli', 'required|numeric');
+        $data['title'] = 'Penjualan';
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/admin_sidebar', $data);

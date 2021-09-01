@@ -31,7 +31,7 @@
                         <th width="30">No.</th>
                         <th>ID Barang Masuk</th>
                         <th>Tanggal</th>
-                        <th>User</th>
+                        <th>Petugas</th>
                         <th>Supplier</th>
                         <th>Total Harga</th>
                         <th></th>

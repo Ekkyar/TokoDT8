@@ -35,7 +35,7 @@
                             <span class="text-muted small"><?= $transaksi->id_transaksi ?> &bullet; <?= date($transaksi->tanggal, true) ?></span>
                         </div>
                         <div class="col-sm text-right">
-                            <a href="<?= base_url('Kasir/Penjualan/cetak_detail/') . $id_transaksi ?>" class="btn btn-primary"><i class="fa fa-print"></i> Print</a>
+                            <a href="<?= base_url('Kasir/Penjualan/cetak_nota/') . $id_transaksi ?>" class="btn btn-primary" target="_blank"><i class="fa fa-print"></i> Nota</a>
                         </div>
                     </div>
                     <div class="table-responsive">
