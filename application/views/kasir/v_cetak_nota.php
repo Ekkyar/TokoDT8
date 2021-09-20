@@ -68,16 +68,16 @@
         <div class="row text-monospace">
             <div class="col">
                 <table class="table table-borderless">
-                    <thead class="border">
+                    <thead class="border text-center">
                         <tr>
                             <th scope="col" class="border">No</th>
                             <th scope="col" class="border">Nama Barang</th>
-                            <th scope="col" class="border">Harga Satuan</th>
+                            <th scope="col" class="border">Harga Satuan (Rp.)</th>
                             <th scope="col" class="border">Jumlah Beli</th>
-                            <th scope="col" class="border text-right">Subtotal</th>
+                            <th scope="col" class="border text-right">Subtotal (Rp.)</th>
                         </tr>
                     </thead>
-                    <tbody class="border">
+                    <tbody class="border text-center">
 
                         <?php
                         $no = 1;
@@ -85,9 +85,9 @@
                             <tr class="border-bottom">
                                 <td class="border"><?= $no++; ?>.</td>
                                 <td class="border"><?= $row->nama_barang; ?></td>
-                                <td class="border"><?= format_uang($row->harga) ?></td>
+                                <td class="border text-right"><?= format_uang2($row->harga) ?></td>
                                 <td class="border"><?= $row->qty; ?></td>
-                                <td class="border text-right"><?= format_uang($row->subtotal) ?></td>
+                                <td class="border text-right"><?= format_uang2($row->subtotal) ?></td>
                             </tr>
                         <?php endforeach; ?>
 
@@ -96,8 +96,16 @@
                         <tr class="text-right font-weight-bold">
                             <td colspan="4">Total Harga</td>
                             <td>
-                                <?= format_uang($transaksi->total) ?>
+                                <?= format_uang($transaksi->total - $transaksi->ppn) ?>
                             </td>
+                        </tr>
+                        <tr>
+                            <th colspan="4" class="text-right">PPN</th>
+                            <th class="text-right"><?= format_uang($transaksi->ppn) ?></th>
+                        </tr>
+                        <tr>
+                            <th colspan="4" class="text-right">Total</th>
+                            <th class="text-right"><?= format_uang($transaksi->total) ?></th>
                         </tr>
                         <tr class="text-right">
                             <td colspan="4">Bayar</td>

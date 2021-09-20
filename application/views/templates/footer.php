@@ -87,6 +87,7 @@
     let hal = '<?= $this->uri->segment(2); ?>';
 
     let satuan = $('#satuan');
+    let jenis = $('#jenis');
     let stok = $('#stok');
     let total = $('#total_stok');
     let jumlah = hal == 'Barang_Masuk' ? $('#jumlah_masuk') : $('#jumlah_keluar');
@@ -95,6 +96,7 @@
         let url = '<?= base_url('Admin/Data_Barang/getstok/'); ?>' + this.value;
         $.getJSON(url, function(data) {
             satuan.html(data.nama_satuan);
+            jenis.val(data.nama_jenis);
             stok.val(data.stok);
             total.val(data.stok);
             jumlah.focus();
@@ -128,7 +130,6 @@
         function cb(start, end) {
             $('#tangal').val(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
         }
-
         $('#tanggal').daterangepicker({
             startDate: start,
             endDate: end,
@@ -146,7 +147,15 @@
 
         cb(start, end);
     });
-
+    $('#example').DataTable({
+        columnDefs: [{
+            orderable: false,
+            targets: 0
+        }],
+        order: [
+            [1, 'asc']
+        ]
+    });
     $(document).ready(function() {
         var table = $('#dataTable').DataTable({
             buttons: ['copy', 'csv', 'print', 'excel', 'pdf'],
@@ -154,14 +163,17 @@
                 "<'row'<'col-md-12'tr>>" +
                 "<'row px-2 px-md-4 py-3'<'col-md-5'i><'col-md-7'p>>",
             lengthMenu: [
-                [5, 10, 25, 50, 100, -1],
-                [5, 10, 25, 50, 100, "All"]
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
             ],
             columnDefs: [{
                 targets: -1,
                 orderable: false,
-                searchable: false
-            }]
+                searchable: false,
+            }],
+            order: [
+                [0, 'desc']
+            ]
         });
 
         table.buttons().container().appendTo('#dataTable_wrapper .col-md-5:eq(0)');

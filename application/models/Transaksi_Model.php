@@ -38,6 +38,34 @@ class Transaksi_Model extends CI_Model
         return array_sum($subtotal);
     }
 
+    // PPN
+    public function getppn($where)
+    {
+        $this->db->join('tb_barang b', 'b.id_barang=k.barang_id');
+        $keranjang = $this->db->get_where('tb_keranjang k', $where)->result();
+
+        $subtotal = [];
+        foreach ($keranjang as $k) {
+            $subtotal[] = $k->qty * $k->harga * 0.1;
+        }
+
+        return array_sum($subtotal);
+    }
+
+    // TOTAL
+    public function getTotal($where)
+    {
+        $this->db->join('tb_barang b', 'b.id_barang=k.barang_id');
+        $keranjang = $this->db->get_where('tb_keranjang k', $where)->result();
+
+        $subtotal = [];
+        foreach ($keranjang as $k) {
+            $subtotal[] = $k->qty * $k->harga + $k->qty * $k->harga * 0.1;
+        }
+
+        return array_sum($subtotal);
+    }
+
     // cek item keranjang
     public function cekItem($where)
     {
@@ -56,7 +84,7 @@ class Transaksi_Model extends CI_Model
     // ambil data tb_detail_transaksi join tb_barang(id)
     public function getDetailTransaksi($id)
     {
-        $this->db->select("b.nama_barang, td.qty, td.subtotal, (td.subtotal/td.qty) as harga");
+        $this->db->select("b.nama_barang, td.qty, td.subtotal, (td.subtotal/td.qty), b.harga, td.total_keranjang");
         $this->db->join('tb_barang b', 'b.id_barang=td.barang_id');
         $this->db->where('transaksi_id', $id);
         return $this->db->get('tb_transaksi_detail td')->result();

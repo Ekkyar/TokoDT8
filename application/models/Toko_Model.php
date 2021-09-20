@@ -342,6 +342,7 @@ class Toko_Model extends CI_Model
     public function cekStok($id)
     {
         $this->db->join('tb_satuan s', 'b.satuan_id=s.id_satuan');
+        $this->db->join('tb_jenis j', 'b.jenis_id=j.id_jenis');
         return $this->db->get_where('tb_barang b', ['id_barang' => $id])->row_array();
     }
 

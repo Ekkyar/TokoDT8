@@ -67,7 +67,9 @@ class Penjualan extends CI_Controller
 
         //model
         $data['keranjang'] = $this->transaksi->getKeranjang(['user_id' => $id_user]);
-        $data['total_harga'] = $this->transaksi->getTotalKeranjang(['user_id' => $id_user]);
+        $data['total_keranjang'] = $this->transaksi->getTotalKeranjang(['user_id' => $id_user]);
+        $data['ppn'] = $this->transaksi->getppn(['user_id' => $id_user]);
+        $data['total'] = $this->transaksi->getTotal(['user_id' => $id_user]);
 
         $this->form_validation->set_rules('bayar', 'Bayar', 'required|numeric');
         if ($this->form_validation->run() == false) {
@@ -87,7 +89,7 @@ class Penjualan extends CI_Controller
             $input['tanggal'] = date('Y-m-d');
             $input['user_id'] = $id_user;
             $input['id_transaksi'] = $id_transaksi;
-            $input['kembalian'] = $input['bayar'] - $data['total_harga'];
+            $input['kembalian'] = $input['bayar'] - $data['total'];
 
             // Data Detail Transaksi
             $data_detail = [];
@@ -97,11 +99,12 @@ class Penjualan extends CI_Controller
                 $data_detail[$i]['barang_id']    = $k->id_barang;
                 $data_detail[$i]['qty']         = $k->qty;
                 $data_detail[$i]['subtotal']    = $k->harga * $k->qty;
+                $data_detail[$i]['total_keranjang']    = $k->qty * $k->harga + $k->qty * $k->harga * 0.1;
                 $i++;
             }
 
             // Cek Bayar
-            if ($input['bayar'] >= $data['total_harga']) {
+            if ($input['bayar'] >= $this->input->post('total')) {
                 $pemesanan =  $this->transaksi->getTotalKeranjang(['user_id' => $id_user]);
                 if ($pemesanan != '0') {
                     // Simpan transaksi
@@ -198,6 +201,9 @@ class Penjualan extends CI_Controller
         $data['user'] = $this->user;
 
         $data['id_transaksi'] = $id;
+
+
+
         $data['transaksi'] = $this->transaksi->getTransaksi($id);
         $data['detail'] = $this->transaksi->getDetailTransaksi($id);
 

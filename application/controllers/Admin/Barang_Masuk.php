@@ -202,4 +202,18 @@ class Barang_Masuk extends CI_Controller
         $this->load->view('admin/v_barang_masuk_detail', $data);
         $this->load->view('templates/footer', $data);
     }
+
+    public function cetak_nota($id)
+    {
+        //ambil data session login
+        $data['akses'] = $this->akses;
+        $data['user'] = $this->user;
+
+        $data['id_barang_masuk'] = $id;
+        $data['barangmasuk'] = $this->transaksi->getBarangMasuk($id);
+        $data['detail'] = $this->transaksi->getDetailBarangMasuk($id);
+
+        $data['title'] = "Barang Masuk";
+        $this->load->view('admin/v_cetak_nota_kulak', $data);
+    }
 }

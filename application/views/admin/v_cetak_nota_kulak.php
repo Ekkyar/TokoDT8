@@ -44,7 +44,7 @@
             </div>
             <div class="row mt-3">
                 <div class="col">
-                    <h2 class="font-weight-bold">NOTA PENJUALAN</h2>
+                    <h2 class="font-weight-bold">NOTA BARANG MASUK</h2>
                 </div>
             </div>
             <div class="row">
@@ -54,7 +54,7 @@
                             <tr>
                                 <td class="border-top border-bottom">
                                     <div>
-                                        <?= $transaksi->nama; ?> / <?= $transaksi->id_transaksi ?> / <?= date($transaksi->tanggal, true) ?>
+                                        <?= $barangmasuk->nama; ?> / <?= $barangmasuk->id_barang_masuk ?> / <?= date($barangmasuk->tanggal, true) ?>
                                     </div>
                                 </td>
                             </tr>
@@ -77,12 +77,12 @@
                             <th scope="col" class="border text-right">Subtotal (Rp.)</th>
                         </tr>
                     </thead>
-                    <tbody class="border text-center">
+                    <tbody class="border">
 
                         <?php
                         $no = 1;
                         foreach ($detail as $row) : ?>
-                            <tr class="border-bottom">
+                            <tr class="border-bottom text-center">
                                 <td class="border"><?= $no++; ?>.</td>
                                 <td class="border"><?= $row->nama_barang; ?></td>
                                 <td class="border text-right"><?= format_uang2($row->harga) ?></td>
@@ -96,19 +96,7 @@
                         <tr class="text-right font-weight-bold">
                             <td colspan="4">Total Harga</td>
                             <td>
-                                <?= format_uang($transaksi->total) ?>
-                            </td>
-                        </tr>
-                        <tr class="text-right">
-                            <td colspan="4">Bayar</td>
-                            <td class="text-right">
-                                <?= format_uang($transaksi->bayar) ?>
-                            </td>
-                        </tr>
-                        <tr class="text-right">
-                            <td colspan="4">Kembalian</td>
-                            <td class="text-right">
-                                <?= format_uang($transaksi->kembalian) ?>
+                                <?= format_uang2($barangmasuk->total) ?>
                             </td>
                         </tr>
                     </tfoot>
@@ -116,15 +104,14 @@
             </div>
         </div>
 
-        <div>
+        <!-- <div>
             <div class="row">
                 <div class="col">
                     <p> &bullet; Terimakasih atas kunjungan anda.</p>
                     <p> &bullet; Barang yang sudah dibeli tidak dapat ditukar atau dikembalikan.</p>
                 </div>
-
             </div>
-        </div>
+        </div> -->
 
     </div>
 

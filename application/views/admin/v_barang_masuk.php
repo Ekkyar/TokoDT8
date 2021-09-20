@@ -33,7 +33,7 @@
                         <th>Tanggal</th>
                         <th>Petugas</th>
                         <th>Supplier</th>
-                        <th>Total Harga</th>
+                        <th>Total Harga (Rp.)</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -55,7 +55,7 @@
                                 </td>
                                 <td><?= $row->nama ?></td>
                                 <td><?= $row->nama_supplier ?></td>
-                                <td><?= format_uang($row->total); ?></td>
+                                <td class="text-right"><?= format_uang2($row->total) ?></td>
                                 <td>
                                     <a onclick="return confirm('Apakah anda yakin ingin hapus data?')" href="<?= base_url('Admin/Barang_Masuk/delete/') . $row->id_barang_masuk; ?>" class="btn btn-circle btn-sm btn-danger">
                                         <i class="fa fa-trash"></i>

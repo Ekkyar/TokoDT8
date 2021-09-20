@@ -32,8 +32,9 @@
                         <th>ID Transaksi</th>
                         <th>Tanggal</th>
                         <th>Petugas</th>
-                        <th>Total Transaksi</th>
-                        <th></th>
+                        <th class="text-right">Total (Rp.)</th>
+                        <th class="text-right">PPN (Rp.)</th>
+                        <th class="text-right">Total Transaksi (Rp.)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,13 +55,9 @@
                                 <td>
                                     <?= $row->nama; ?>
                                 </td>
-                                <td><?= format_uang($row->total); ?></td>
-                                <td>
-
-                                    <a onclick="return confirm('Apakah anda yakin ingin hapus data?')" href="<?= base_url('Kasir/Penjualan/delete/') . $row->id_transaksi; ?>" class="btn btn-circle btn-sm btn-danger">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </td>
+                                <td class="text-right"><?= format_uang2($row->total - $row->ppn); ?></td>
+                                <td class="text-right"><?= format_uang2($row->ppn); ?></td>
+                                <td class="text-right"><?= format_uang2($row->total); ?></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else : ?>

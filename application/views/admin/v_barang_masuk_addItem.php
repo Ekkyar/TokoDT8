@@ -30,7 +30,7 @@
                     <!-- ID BARANG -->
                     <div class="row form-group">
                         <label class="col-md-4 text-md-right" for="barang_id">Barang</label>
-                        <div class="col-md-5">
+                        <div class="col-md-7">
                             <div class="input-group">
                                 <select name="barang_id" id="barang_id" class="custom-select">
                                     <option value="" selected disabled>Pilih Barang</option>
@@ -38,7 +38,7 @@
                                         <option <?= $this->uri->segment(4) == $b['id_barang'] ? 'selected' : '';  ?> <?= set_select('barang_id', $b['id_barang']) ?> value="<?= $b['id_barang'] ?>">
                                             <?php foreach ($barangdetail as $bd) : ?>
                                                 <?php if ($b['id_barang'] == $bd['id_barang']) : ?>
-                                                    <?= $b['id_barang'] . ' | ' . $b['nama_barang'] . ' | ' . $bd['nama_satuan'] ?>
+                                                    <?= $b['id_barang'] . ' | ' . $b['nama_barang'] . ' | ' . $bd['nama_satuan']; ?>
                                                 <?php endif; ?>
                                             <?php endforeach; ?>
                                         </option>
@@ -84,7 +84,7 @@
                         </div>
                     </div>
 
-                    <!-- SATUAN -->
+                    <!-- JUMLAH MASUK -->
                     <div class="row form-group">
                         <label class="col-md-4 text-md-right" for="jumlah_masuk">Jumlah Masuk</label>
                         <div class="col-md-5">
@@ -95,6 +95,14 @@
                                 </div>
                             </div>
                             <?= form_error('qty', '<small class="text-danger">', '</small>'); ?>
+                        </div>
+                    </div>
+
+                    <!-- JENIS -->
+                    <div class="row form-group">
+                        <label class="col-md-4 text-md-right" for="jenis ">Jenis</label>
+                        <div class="col-md-5">
+                            <input readonly="readonly" id="jenis" type="text" class="form-control">
                         </div>
                     </div>
 
@@ -111,7 +119,7 @@
                         <label class="col-md-4 text-md-right" for="harga_masuk">Harga Masuk</label>
                         <div class="col-md-5">
                             <div class="input-group">
-                                <input value="<?= set_value('harga_masuk'); ?>" name="harga_masuk" id="harga_masuk" type="number" class="form-control" placeholder="Harga Masuk...">
+                                <input value="<?= set_value('harga_masuk'); ?>" name="harga_masuk" id="harga_masuk" type="number" class="form-control" placeholder="Harga Masuk..." required>
                             </div>
                             <?= form_error('harga_masuk', '<small class="text-danger">', '</small>'); ?>
                         </div>
@@ -163,7 +171,7 @@
                                                         <td><?= format_uang($row['harga']); ?></td>
                                                         <td><?= $row['stok']; ?></td>
                                                         <td>
-                                                            <button data-stok="<?= $row['stok']; ?>" data-kode="<?= $row['id_barang'] ?>" data-nama_barang="<?= $row['nama_barang'] ?>" type="button" class="btn btn-pilih btn-sm btn-primary">
+                                                            <button data-jenis="<?= $row['nama_jenis']; ?>" data-stok="<?= $row['stok']; ?>" data-kode="<?= $row['id_barang'] ?>" data-nama_barang="<?= $row['nama_barang'] ?>" type="button" class="btn btn-pilih btn-sm btn-primary">
                                                                 <i class="fa fa-check fa-fw"></i> Pilih
                                                             </button>
                                                         </td>

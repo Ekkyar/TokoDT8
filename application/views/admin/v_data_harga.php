@@ -21,8 +21,8 @@
                         <th>Nama Barang</th>
                         <th>Jenis Barang</th>
                         <th>Satuan</th>
-                        <th>Harga Masuk</th>
-                        <th>Harga Jual</th>
+                        <th class="text-right">Harga Masuk (Rp.)</th>
+                        <th class="text-right">Harga Jual (Rp.)</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -38,8 +38,8 @@
                                 <td><?= $b['nama_barang']; ?></td>
                                 <td><?= $b['nama_jenis']; ?></td>
                                 <td><?= $b['nama_satuan']; ?></td>
-                                <td><?= format_uang($b['harga_masuk']); ?></td>
-                                <td><?= format_uang($b['harga']); ?></td>
+                                <td class="text-right"><?= format_uang2($b['harga_masuk']); ?></td>
+                                <td class="text-right"><?= format_uang2($b['harga']); ?></td>
                                 <td>
                                     <a href="<?= base_url('Admin/Data_Barang/edit_harga/') . $b['id_barang'] ?>" class="btn btn-warning btn-circle btn-sm"><i class="fa fa-edit"></i></a>
                                 </td>

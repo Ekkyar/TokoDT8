@@ -21,8 +21,8 @@
                         <th>Jenis Barang</th>
                         <th>Satuan</th>
                         <th>Stok</th>
-                        <th>Harga Masuk</th>
-                        <th>Harga Jual</th>
+                        <th class="text-right">Harga Masuk (Rp.)</th>
+                        <th class="text-right">Harga Jual (Rp.)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,8 +42,8 @@
                                 <td><?= $b['nama_jenis']; ?></td>
                                 <td><?= $b['nama_satuan']; ?></td>
                                 <td><?= $b['stok']; ?></td>
-                                <td><?= format_uang($b['harga_masuk']); ?></td>
-                                <td><?= format_uang($b['harga']); ?></td>
+                                <td class="text-right"><?= format_uang2($b['harga_masuk']); ?></td>
+                                <td class="text-right"><?= format_uang2($b['harga']); ?></td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else : ?>

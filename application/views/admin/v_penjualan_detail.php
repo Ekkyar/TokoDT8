@@ -44,21 +44,21 @@
                                 <tr class="text-center">
                                     <th>#</th>
                                     <th>Nama Barang</th>
-                                    <th>Harga Satuan</th>
+                                    <th>Harga Satuan (Rp.)</th>
                                     <th>Jumlah Beli</th>
-                                    <th>Subtotal</th>
+                                    <th class="text-right">Subtotal (Rp.)</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="text-center">
                                 <?php
                                 $no = 1;
                                 foreach ($detail as $row) : ?>
                                     <tr>
-                                        <td align="center"><?= $no++; ?>.</td>
+                                        <td><?= $no++; ?>.</td>
                                         <td><?= $row->nama_barang; ?></td>
-                                        <td><?= format_uang($row->harga) ?></td>
-                                        <td align="center"><?= $row->qty; ?></td>
-                                        <td align="right"><?= format_uang($row->subtotal) ?></td>
+                                        <td align="right"><?= format_uang2($row->harga) ?></td>
+                                        <td><?= $row->qty; ?></td>
+                                        <td align="right"><?= format_uang2($row->subtotal) ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

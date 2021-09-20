@@ -41,6 +41,12 @@ function format_uang($number = 0, $acc = true)
     return $acc . number_format($number, 0, ',', '.');
 }
 
+function format_uang2($number = 0, $acc = true)
+{
+    if ($acc) $acc = "";
+    return $acc . number_format($number, 0, ',', '.');
+}
+
 function generate_id($char = "", $table = "", $field = "", $date = "", $digit = 5)
 {
     $ci = get_instance();

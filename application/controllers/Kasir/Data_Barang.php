@@ -39,7 +39,7 @@ class Data_Barang extends CI_Controller
         $this->load->view('templates/kasir_sidebar', $data);
         $this->load->view('templates/kasir_topbar', $data);
         $this->load->view('kasir/v_data_barang', $data);
-        $this->load->view('templates/footer');
+        $this->load->view('templates/footer', $data);
     }
 
     public function QRcode($kode)

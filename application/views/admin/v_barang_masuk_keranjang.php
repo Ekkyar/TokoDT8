@@ -44,17 +44,17 @@
 
                     <div class="mt-3 table-responsive">
                         <table class="table table-hover">
-                            <thead>
+                            <thead class="text-center">
                                 <tr>
                                     <th>#</th>
                                     <th>Nama Barang</th>
                                     <th>Jumlah Beli</th>
-                                    <th>Harga Satuan</th>
-                                    <th>Subtotal</th>
+                                    <th class="text-right">Harga Satuan (Rp.)</th>
+                                    <th class="text-right">Subtotal (Rp.)</th>
                                     <th>Hapus</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="text-center">
                                 <?php
                                 if (!$keranjang) : ?>
                                     <tr>
@@ -70,8 +70,8 @@
                                             <td><?= $no++; ?>.</td>
                                             <td><?= $row->nama_barang; ?></td>
                                             <td><?= $row->qty; ?></td>
-                                            <td><?= format_uang($row->harga_masuk) ?></td>
-                                            <td><?= format_uang($row->harga_masuk * $row->qty) ?></td>
+                                            <td class="text-right"><?= format_uang2($row->harga_masuk) ?></td>
+                                            <td class="text-right"><?= format_uang2($row->harga_masuk * $row->qty) ?></td>
                                             <td>
                                                 <a onclick="return confirm('Apakah anda yakin ingin menghapus item?');" href="<?= base_url('Admin/Barang_Masuk/delete_item/' . $row->id_item) ?>" class="btn btn-circle btn-sm btn-danger">
                                                     <i class="fa fa-trash"></i>

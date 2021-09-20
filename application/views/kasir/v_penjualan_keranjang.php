@@ -49,8 +49,8 @@
                                     <th>#</th>
                                     <th>Nama Barang</th>
                                     <th>Jumlah Beli</th>
-                                    <th>Harga Satuan</th>
-                                    <th>Subtotal</th>
+                                    <th class="text-right">Harga Satuan</th>
+                                    <th class="text-right">Subtotal (Rp.)</th>
                                     <th>Hapus</th>
                                 </tr>
                             </thead>
@@ -70,8 +70,8 @@
                                             <td><?= $no++; ?>.</td>
                                             <td><?= $row->nama_barang; ?></td>
                                             <td><?= $row->qty; ?></td>
-                                            <td><?= format_uang($row->harga) ?></td>
-                                            <td><?= format_uang($row->harga * $row->qty) ?></td>
+                                            <td class="text-right"><?= format_uang2($row->harga) ?></td>
+                                            <td class="text-right"><?= format_uang2($row->harga * $row->qty) ?></td>
                                             <td>
                                                 <a onclick="return confirm('Apakah anda yakin ingin menghapus item?');" href="<?= base_url('Kasir/Penjualan/delete_item/' . $row->id_item) ?>" class="btn btn-circle btn-sm btn-danger">
                                                     <i class="fa fa-trash"></i>
@@ -93,15 +93,38 @@
 
                     <?= form_open(); ?>
                     <div class="form-group">
-                        <label for="total">Total Harga</label>
+                        <label for="total_keranjang">Total Keranjang</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Rp.</div>
                             </div>
-                            <input type="hidden" name="total" id="total" value="<?= $total_harga; ?>">
-                            <input type="text" class="form-control" readonly value="<?= format_uang($total_harga, false); ?>">
+                            <input type="hidden" id="total_keranjang" value="<?= $total_keranjang; ?>">
+                            <input type="text" class="form-control" readonly value="<?= format_uang($total_keranjang, false); ?>">
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label for="ppn">PPN (10%)</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Rp.</div>
+                            </div>
+                            <input type="hidden" name="ppn" id="ppn" value="<?= $ppn; ?>">
+                            <input type="text" class="form-control" readonly value="<?= format_uang($ppn, false); ?>">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="total">Total</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Rp.</div>
+                            </div>
+                            <input type="hidden" name="total" id="total" value="<?= $total; ?>">
+                            <input type="text" class="form-control" readonly value="<?= format_uang($total, false); ?>">
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="bayar">Uang Bayar</label>
                         <div class="input-group">
@@ -112,6 +135,7 @@
                         </div>
                         <?= form_error('bayar', '<span class="text-danger small">', '</span>'); ?>
                     </div>
+
                     <div class="form-group">
                         <label for="kembalian">Kembalian</label>
                         <div class="input-group">
